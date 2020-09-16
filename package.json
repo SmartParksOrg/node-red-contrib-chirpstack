@@ -1,0 +1,29 @@
+{
+    "name": "node-red-contrib-chirpstack",
+    "version": "1.0.0",
+    "description": "An adapter for node-red to easily connect to the chirp stack gRPC API.",
+    "keywords": [
+        "node-red"
+    ],
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/adminfriso/node-red-contrib-chirpstack.git"
+    },
+    "author": "Friso Modderman",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/adminfriso/node-red-contrib-chirpstack/issues"
+    },
+    "homepage": "https://github.com/adminfriso/node-red-contrib-chirpstack#readme",
+    "dependencies": {
+        "@chirpstack/chirpstack-api": "^3.7.8",
+        "grpc": "^1.24.3"
+    },
+    "node-red": {
+        "nodes": {
+            "chirpstack": "src/chirpstack.js",
+            "config-connection": "src/chirpstack-connection.js",
+        }
+    }
+}

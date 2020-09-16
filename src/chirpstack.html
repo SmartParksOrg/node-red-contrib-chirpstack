@@ -1,0 +1,34 @@
+<script type="text/javascript">
+    RED.nodes.registerType('chirpstack-base',{
+        category: 'function',
+        color: '#a6bbcf',
+        defaults: {
+            connection: {value:"", type:"chirpstack-connection"},
+            name: {value:""}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "file.png",
+        label: function() {
+            return this.name||"chirpstack-base";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="chirpstack-base">
+    <div class="form-row">
+        <label for="node-input-connection"><i class="fa fa-tag"></i> Chirpstack Connection</label>
+        <input type="text" id="node-input-connection">
+    </div>
+</script>
+
+<script type="text/html" data-template-name="chirpstack-base">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="chirpstack-base">
+    <p>This is the base node for chirpstack</p>
+</script>
