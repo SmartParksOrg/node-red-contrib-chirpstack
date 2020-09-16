@@ -23,7 +23,7 @@
     "node-red": {
         "nodes": {
             "chirpstack": "src/chirpstack.js",
-            "config-connection": "src/chirpstack-connection.js",
+            "config-connection": "src/chirpstack-connection.js"
         }
     }
 }
