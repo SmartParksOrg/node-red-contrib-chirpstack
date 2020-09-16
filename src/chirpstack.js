@@ -58,7 +58,7 @@ module.exports = function (RED) {
           i.setId(1);
 
           userServiceClient.get(i, metadata, null, (error, getUserResponse) => {
-            msg.payload = getUserResponse.getUser();
+            msg.payload = getUserResponse.getUser().toObject();
             node.send(msg);
           })
 
