@@ -14,7 +14,7 @@ RED.nodes.registerType<ChirpstackBaseEditorNodeProperties>("chirpstack-base", {
   outputs: 1,
   icon: "file.png",
   paletteLabel: "chirpstack base",
-  label: function () {
-    return this.name || "chirpstack base";
-  },
+    label() {
+        return this.name || "chirpstack base";
+    },
 });
