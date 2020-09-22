@@ -21,8 +21,9 @@
   "node-red": {
     "nodes": {
       "transform-text": "./dist/nodes/transform-text/transform-text.js",
-      "chirpstack-base": "./dist/nodes/chirpstack-base/chirpstack-base.js",
-      "chirpstack-connection": "./dist/nodes/chirpstack-connection/chirpstack-connection.js"
+      "chirpstack-connection": "./dist/nodes/chirpstack-connection/chirpstack-connection.js",
+      "chirpstack-get-all-users": "./dist/nodes/chirpstack-get-all-users/chirpstack-get-all-users.js",
+      "chirpstack-get-one-user": "./dist/nodes/chirpstack-get-one-user/chirpstack-get-one-user.js"
     }
   },
   "dependencies": {

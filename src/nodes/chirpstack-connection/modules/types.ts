@@ -1,5 +1,6 @@
-import { Node, NodeDef } from "node-red";
 import { ChirpstackConnectionOptions } from "../shared/types";
+import * as grpc from "grpc";
+import { Node, NodeDef } from "node-red";
 
 export interface ChirpstackConnectionNodeDef
   extends NodeDef,
@@ -7,5 +8,9 @@ export interface ChirpstackConnectionNodeDef
 
 export interface ChirpstackConnectionNode
   extends Node,
-    ChirpstackConnectionOptions {}
+    ChirpstackConnectionOptions {
+  fullAddress: string;
+  grpcMetadata: grpc.Metadata;
+}
+
 // export type ChirpstackConnectionNode = Node;
