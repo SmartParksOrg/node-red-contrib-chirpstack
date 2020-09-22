@@ -86,4 +86,4 @@ yarn build
 
 ## License
 
-MIT © Smart Parks 
+MIT © Smart Parks

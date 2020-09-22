@@ -1,6 +1,6 @@
-import {ChirpstackConnectionNode} from "../../chirpstack-connection/modules/types";
+import { ChirpstackConnectionNode } from "../../chirpstack-connection/modules/types";
 
 export interface ChirpstackBaseOptions {
   // node options
-    connection: ChirpstackConnectionNode
+  connection: string;
 }
