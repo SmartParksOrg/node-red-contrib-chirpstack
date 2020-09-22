@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x]
+        node-version: [12.x]
 
     steps:
       - uses: actions/checkout@v2.2.0
@@ -17,9 +17,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: yarn, lint, build and test
+      - name: npm, lint, build and test
         run: |
-          yarn
-          yarn lint
-          yarn build
-          yarn test
+          npm ci
+          npm run lint
+          npm run build
+          npm run test

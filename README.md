@@ -40,15 +40,15 @@ node-red-node-typescript-starter/
 ## Getting Started
 
 1. Generate a new GitHub repository by clicking the `Use this template` button at the top of the repository homepage, then clone your new repo. Or you might just clone this repo: `git clone https://github.com/alexk111/node-red-node-typescript-starter.git` and cd into it: `cd node-red-node-typescript-starter`.
-2. This project is designed to work with `yarn`. If you don't have `yarn` installed, you can install it with `npm install -g yarn`.
-3. Install dependencies: `yarn install`.
+2. This project is designed to work with `npm`.
+3. Install dependencies: `npm install`.
 
 ## Adding Nodes
 
 You can quickly scaffold a new node and add it to the node set. Use the following command to create `my-new-node-type` node:
 
 ```
-yarn add-node my-new-node-type
+npm run add-node my-new-node-type
 ```
 
 The node generator is based on mustache templates. At the moment there are two templates available:
@@ -59,7 +59,7 @@ The node generator is based on mustache templates. At the moment there are two t
 To generate a node using a template called `my-template`, enter this command:
 
 ```
-yarn add-node my-new-node-type my-template
+npm run add-node my-new-node-type my-template
 ```
 
 To make your custom-made template available, add it to `./utils/templates/`.
@@ -69,7 +69,7 @@ To make your custom-made template available, add it to `./utils/templates/`.
 Build & Test in Watch mode:
 
 ```
-yarn dev
+npm run dev
 ```
 
 ## Building Node Set
@@ -77,7 +77,7 @@ yarn dev
 Create a production build:
 
 ```
-yarn build
+npm run build
 ```
 
 ## Testing Node Set in Node-RED
