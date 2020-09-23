@@ -17,10 +17,6 @@ const nodeInit: NodeInitializer = (RED): void => {
     RED.nodes.createNode(this, config);
     this.chirpstackConnection = setConnection(this, config, RED);
     this.on("input", (msg, send, done) => {
-      // const userServiceClient = new UserServiceClient(
-      //     this.chirpstackConnection.fullAddress,
-      //     grpc.credentials.createInsecure()
-      // );
       const getUserRequest = new user.GetUserRequest();
 
       if (typeof msg.payload === "number") {

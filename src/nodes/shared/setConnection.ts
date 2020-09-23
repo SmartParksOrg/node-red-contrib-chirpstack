@@ -3,7 +3,6 @@ import { ChirpstackConnectionNode } from "../chirpstack-connection/modules/types
 import { ChirpstackBaseNode, ChirpstackBaseNodeDef } from "./types";
 
 export function setConnection(
-  //TODO: base node needs to be removed, than the essentials node can be refactored to base node
   baseNode: ChirpstackBaseNode,
   config: ChirpstackBaseNodeDef,
   RED: NodeAPI

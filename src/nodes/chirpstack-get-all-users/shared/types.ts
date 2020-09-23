@@ -1,3 +1,3 @@
 export interface ChirpstackGetAllUsersOptions {
-  // node options
+  connection: string;
 }

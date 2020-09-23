@@ -5,7 +5,7 @@ export interface ChirpstackBaseNodeDef extends NodeDef {
   connection: string;
 }
 
-export interface ChirpstackEssentialsNode extends Node {
+export interface ChirpstackBaseNode extends Node {
   chirpstackConnection: ChirpstackConnectionNode;
 }
 

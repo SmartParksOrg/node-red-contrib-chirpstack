@@ -1,8 +1,5 @@
 import { ChirpstackGetOneUserOptions } from "../shared/types";
-import {
-  ChirpstackBaseNode,
-  ChirpstackBaseNodeDef,
-} from "../../shared/types";
+import { ChirpstackBaseNode, ChirpstackBaseNodeDef } from "../../shared/types";
 
 export interface ChirpstackGetOneUserNodeDef
   extends ChirpstackBaseNodeDef,

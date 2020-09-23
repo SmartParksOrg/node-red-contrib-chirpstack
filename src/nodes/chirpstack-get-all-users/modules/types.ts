@@ -1,9 +1,9 @@
-import { Node, NodeDef } from "node-red";
+import { ChirpstackBaseNode, ChirpstackBaseNodeDef } from "../../shared/types";
 import { ChirpstackGetAllUsersOptions } from "../shared/types";
 
 export interface ChirpstackGetAllUsersNodeDef
-  extends NodeDef,
+  extends ChirpstackBaseNodeDef,
     ChirpstackGetAllUsersOptions {}
 
-// export interface ChirpstackGetAllUsersNode extends Node {}
-export type ChirpstackGetAllUsersNode = Node;
+// export interface ChirpstackGetAllUsersNode extends ChirpstackBaseNode {}
+export type ChirpstackGetAllUsersNode = ChirpstackBaseNode;
