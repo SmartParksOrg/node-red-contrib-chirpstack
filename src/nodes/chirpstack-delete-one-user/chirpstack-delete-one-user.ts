@@ -37,6 +37,9 @@ const nodeInit: NodeInitializer = (RED): void => {
         (error, res) => {
           if (error) {
             this.error(error);
+            msg.payload = error;
+            send(msg);
+            done();
             return;
           }
           msg.payload = res?.toObject();
