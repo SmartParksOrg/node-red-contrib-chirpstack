@@ -35,7 +35,6 @@ const nodeInit: NodeInitializer = (RED): void => {
         this.chirpstackConnection.grpcMetadata,
         null,
         (error, res) => {
-          console.log("received callback");
           if (error) {
             this.error(error);
             return;
