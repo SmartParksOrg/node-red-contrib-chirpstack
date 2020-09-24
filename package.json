@@ -25,7 +25,9 @@
       "chirpstack-get-all-users": "./dist/nodes/chirpstack-get-all-users/chirpstack-get-all-users.js",
       "chirpstack-delete-one-user": "./dist/nodes/chirpstack-delete-one-user/chirpstack-delete-one-user.js",
       "chirpstack-update-one-user": "./dist/nodes/chirpstack-update-one-user/chirpstack-update-one-user.js",
-      "chirpstack-create-one-user": "./dist/nodes/chirpstack-create-one-user/chirpstack-create-one-user.js"
+      "chirpstack-create-one-user": "./dist/nodes/chirpstack-create-one-user/chirpstack-create-one-user.js",
+      "chirpstack-user-management": "./dist/nodes/chirpstack-user-management/chirpstack-user-management.js",
+      "chirpstack-get-all-devices": "./dist/nodes/chirpstack-get-all-devices/chirpstack-get-all-devices.js"
     }
   },
   "dependencies": {

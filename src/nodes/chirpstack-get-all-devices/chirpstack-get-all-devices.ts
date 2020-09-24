@@ -1,35 +1,35 @@
 import { NodeInitializer } from "node-red";
 import {
-  ChirpstackGetAllUsersNode,
-  ChirpstackGetAllUsersNodeDef,
+  ChirpstackGetAllDevicesNode,
+  ChirpstackGetAllDevicesNodeDef,
 } from "./modules/types";
 import { setConnection } from "../shared/setConnection";
 import grpc from "grpc";
 
-import * as user from "@chirpstack/chirpstack-api/as/external/api/user_pb";
-import { UserListItem } from "@chirpstack/chirpstack-api/as/external/api/user_pb";
-import { UserServiceClient } from "@chirpstack/chirpstack-api/as/external/api/user_grpc_pb";
+import * as device from "@chirpstack/chirpstack-api/as/external/api/device_pb";
+import { DeviceListItem } from "@chirpstack/chirpstack-api/as/external/api/device_pb";
+import { DeviceServiceClient } from "@chirpstack/chirpstack-api/as/external/api/device_grpc_pb";
 
 const nodeInit: NodeInitializer = (RED): void => {
-  function ChirpstackGetAllUsersNodeConstructor(
-    this: ChirpstackGetAllUsersNode,
-    config: ChirpstackGetAllUsersNodeDef
+  function ChirpstackGetAllDevicesNodeConstructor(
+    this: ChirpstackGetAllDevicesNode,
+    config: ChirpstackGetAllDevicesNodeDef
   ): void {
     RED.nodes.createNode(this, config);
     this.chirpstackConnection = setConnection(this, config, RED);
 
     this.on("input", (msg, send, done) => {
-      const listUserRequest = new user.ListUserRequest();
-      listUserRequest.setLimit(5);
-      listUserRequest.getOffset();
+      const listDeviceRequest = new device.ListDeviceRequest();
+      listDeviceRequest.setLimit(5);
+      listDeviceRequest.getOffset();
 
-      getUserList(
+      getDeviceList(
         5,
         this.chirpstackConnection.fullAddress,
         this.chirpstackConnection.grpcMetadata
-      ).then((userList) => {
+      ).then((deviceList) => {
         const nodeRedResponse: unknown[] = [];
-        userList.forEach((item) => {
+        deviceList.forEach((item) => {
           nodeRedResponse.push(item.toObject());
         });
         msg.payload = nodeRedResponse;
@@ -39,20 +39,20 @@ const nodeInit: NodeInitializer = (RED): void => {
     });
   }
 
-  function getUserList(
+  function getDeviceList(
     limit: number,
     address: string,
     metaData: grpc.Metadata
-  ): Promise<UserListItem[]> {
-    const results: UserListItem[] = [];
-    const client = new UserServiceClient(
+  ): Promise<DeviceListItem[]> {
+    const results: DeviceListItem[] = [];
+    const client = new DeviceServiceClient(
       address,
       grpc.credentials.createInsecure()
     );
 
     return handleRequest(0, limit, results, client, metaData).then(
-      (userList) => {
-        return userList;
+      (deviceList) => {
+        return deviceList;
       }
     );
   }
@@ -60,11 +60,11 @@ const nodeInit: NodeInitializer = (RED): void => {
   function handleRequest(
     offset: number,
     limit: number,
-    resultSet: UserListItem[],
-    client: UserServiceClient,
+    resultSet: DeviceListItem[],
+    client: DeviceServiceClient,
     metaData: grpc.Metadata
-  ): Promise<UserListItem[]> {
-    const request = new user.ListUserRequest();
+  ): Promise<DeviceListItem[]> {
+    const request = new device.ListDeviceRequest();
     request.setLimit(limit);
     request.setOffset(offset);
     return new Promise((resolve) => {
@@ -83,8 +83,8 @@ const nodeInit: NodeInitializer = (RED): void => {
   }
 
   RED.nodes.registerType(
-    "chirpstack-get-all-users",
-    ChirpstackGetAllUsersNodeConstructor
+    "chirpstack-get-all-devices",
+    ChirpstackGetAllDevicesNodeConstructor
   );
 };
 

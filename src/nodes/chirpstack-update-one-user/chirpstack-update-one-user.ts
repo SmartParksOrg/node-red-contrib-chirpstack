@@ -4,9 +4,10 @@ import {
   ChirpstackUpdateOneUserNodeDef,
 } from "./modules/types";
 import { setConnection } from "../shared/setConnection";
+import grpc from "grpc";
+
 import * as user from "@chirpstack/chirpstack-api/as/external/api/user_pb";
 import { UserServiceClient } from "@chirpstack/chirpstack-api/as/external/api/user_grpc_pb";
-import grpc from "grpc";
 import { User } from "@chirpstack/chirpstack-api/as/external/api/user_pb";
 
 const nodeInit: NodeInitializer = (RED): void => {
