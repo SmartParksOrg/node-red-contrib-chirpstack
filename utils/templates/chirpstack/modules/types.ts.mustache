@@ -1,0 +1,10 @@
+import {
+  ChirpstackBaseNode,
+  ChirpstackBaseNodeDef,
+} from "../../shared/types";
+import { <%NodeTypePascalCase%>Options } from "../shared/types";
+
+export interface <%NodeTypePascalCase%>NodeDef extends ChirpstackBaseNodeDef, <%NodeTypePascalCase%>Options {}
+
+// export interface <%NodeTypePascalCase%>Node extends ChirpstackBaseNode {}
+export type <%NodeTypePascalCase%>Node = ChirpstackBaseNode;

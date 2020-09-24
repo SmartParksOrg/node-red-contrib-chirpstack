@@ -12,13 +12,13 @@ RED.nodes.registerType<ChirpstackConnectionEditorNodeProperties>(
       host: { value: "localhost", required: true },
       port: { value: 8080, required: true, validate: RED.validators.number() },
       username: { value: "Username", required: true },
-      password: { value: "Password", required: true },
+      password: { value: "Password", required: true, type: "password" },
     },
     inputs: 1,
     outputs: 1,
     icon: "file.png",
     paletteLabel: "chirpstack connection",
-    label: function () {
+    label() {
       return this.host + ":" + this.port;
     },
   }

@@ -20,9 +20,12 @@
   "license": "MIT",
   "node-red": {
     "nodes": {
-      "transform-text": "./dist/nodes/transform-text/transform-text.js",
-      "chirpstack-base": "./dist/nodes/chirpstack-base/chirpstack-base.js",
-      "chirpstack-connection": "./dist/nodes/chirpstack-connection/chirpstack-connection.js"
+      "chirpstack-connection": "./dist/nodes/chirpstack-connection/chirpstack-connection.js",
+      "chirpstack-get-one-user": "./dist/nodes/chirpstack-get-one-user/chirpstack-get-one-user.js",
+      "chirpstack-get-all-users": "./dist/nodes/chirpstack-get-all-users/chirpstack-get-all-users.js",
+      "chirpstack-delete-one-user": "./dist/nodes/chirpstack-delete-one-user/chirpstack-delete-one-user.js",
+      "chirpstack-update-one-user": "./dist/nodes/chirpstack-update-one-user/chirpstack-update-one-user.js",
+      "chirpstack-create-one-user": "./dist/nodes/chirpstack-create-one-user/chirpstack-create-one-user.js"
     }
   },
   "dependencies": {
