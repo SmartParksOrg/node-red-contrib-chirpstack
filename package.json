@@ -22,7 +22,8 @@
     "nodes": {
       "chirpstack-connection": "./dist/nodes/chirpstack-connection/chirpstack-connection.js",
       "chirpstack-get-one-user": "./dist/nodes/chirpstack-get-one-user/chirpstack-get-one-user.js",
-      "chirpstack-get-all-users": "./dist/nodes/chirpstack-get-all-users/chirpstack-get-all-users.js"
+      "chirpstack-get-all-users": "./dist/nodes/chirpstack-get-all-users/chirpstack-get-all-users.js",
+      "chirpstack-delete-one-user": "./dist/nodes/chirpstack-delete-one-user/chirpstack-delete-one-user.js"
     }
   },
   "dependencies": {

@@ -27,8 +27,7 @@ const nodeInit: NodeInitializer = (RED): void => {
         this.chirpstackConnection.fullAddress,
         this.chirpstackConnection.grpcMetadata
       ).then((userList) => {
-        //eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const nodeRedResponse: any[] = [];
+        const nodeRedResponse: unknown[] = [];
         userList.forEach((item) => {
           nodeRedResponse.push(item.toObject());
         });
