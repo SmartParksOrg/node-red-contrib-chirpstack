@@ -1,44 +1,46 @@
 import { NodeInitializer } from "node-red";
 import {
-  ChirpstackUserManagementNode,
-  ChirpstackUserManagementNodeDef,
+  ChirpstackDeviceManagementNode,
+  ChirpstackDeviceManagementNodeDef,
 } from "./modules/types";
-import grpc from "grpc";
 import { setConnection } from "../shared/setConnection";
+import { ChirpstackUserManagementNode } from "../chirpstack-user-management/modules/types";
 
-import { UserServiceClient } from "@chirpstack/chirpstack-api/as/external/api/user_grpc_pb";
+import grpc from "grpc";
 import {
-  CreateUserRequest,
-  DeleteUserRequest,
-  GetUserRequest,
-  ListUserRequest,
-  UpdateUserRequest,
-  User,
-  UserListItem,
-} from "@chirpstack/chirpstack-api/as/external/api/user_pb";
+  DeviceListItem,
+  ListDeviceRequest,
+  GetDeviceRequest,
+  CreateDeviceRequest,
+  Device,
+  UpdateDeviceRequest,
+  DeleteDeviceRequest,
+} from "@chirpstack/chirpstack-api/as/external/api/device_pb";
+import { DeviceServiceClient } from "@chirpstack/chirpstack-api/as/external/api/device_grpc_pb";
 
 const nodeInit: NodeInitializer = (RED): void => {
-  function ChirpstackUserManagementNodeConstructor(
-    this: ChirpstackUserManagementNode,
-    config: ChirpstackUserManagementNodeDef
+  function ChirpstackDeviceManagementNodeConstructor(
+    this: ChirpstackDeviceManagementNode,
+    config: ChirpstackDeviceManagementNodeDef
   ): void {
     RED.nodes.createNode(this, config);
     this.chirpstackConnection = setConnection(this, config, RED);
+
     switch (config.action) {
       case "list":
-        listAllUsers(this);
+        listAllDevices(this);
         break;
       case "get":
-        getOneUser(this);
+        getOneDevice(this);
         break;
       case "create":
-        createOneUser(this);
+        createOneDevice(this);
         break;
       case "update":
-        updateOneUser(this);
+        updateOneDevice(this);
         break;
       case "delete":
-        deleteOneUser(this);
+        deleteOneDevice(this);
         break;
       default:
         this.on("input", (msg, send, done) => {
@@ -51,27 +53,27 @@ const nodeInit: NodeInitializer = (RED): void => {
     }
   }
 
-  function listAllUsers(node: ChirpstackUserManagementNode): void {
+  function listAllDevices(node: ChirpstackUserManagementNode): void {
     node.on("input", (msg, send, done) => {
-      const listUserRequest = new ListUserRequest();
-      listUserRequest.setLimit(5);
-      listUserRequest.getOffset();
+      const listDeviceRequest = new ListDeviceRequest();
+      listDeviceRequest.setLimit(5);
+      listDeviceRequest.getOffset();
 
-      const results: UserListItem[] = [];
-      const client = new UserServiceClient(
+      const results: DeviceListItem[] = [];
+      const client = new DeviceServiceClient(
         node.chirpstackConnection.fullAddress,
         grpc.credentials.createInsecure()
       );
 
-      handleListAllUsersRequest(
+      handleListAllDevicesRequest(
         0,
         10,
         results,
         client,
         node.chirpstackConnection.grpcMetadata
-      ).then((userList) => {
+      ).then((deviceList) => {
         const nodeRedResponse: unknown[] = [];
-        userList.forEach((item) => {
+        deviceList.forEach((item) => {
           nodeRedResponse.push(item.toObject());
         });
         msg.payload = nodeRedResponse;
@@ -81,14 +83,14 @@ const nodeInit: NodeInitializer = (RED): void => {
     });
   }
 
-  function handleListAllUsersRequest(
+  function handleListAllDevicesRequest(
     offset: number,
     limit: number,
-    resultSet: UserListItem[],
-    client: UserServiceClient,
+    resultSet: DeviceListItem[],
+    client: DeviceServiceClient,
     metaData: grpc.Metadata
-  ): Promise<UserListItem[]> {
-    const request = new ListUserRequest();
+  ): Promise<DeviceListItem[]> {
+    const request = new ListDeviceRequest();
     request.setLimit(limit);
     request.setOffset(offset);
     return new Promise((resolve) => {
@@ -98,7 +100,7 @@ const nodeInit: NodeInitializer = (RED): void => {
         });
         if (offset + limit < (response?.getTotalCount() || 0)) {
           return resolve(
-            handleListAllUsersRequest(
+            handleListAllDevicesRequest(
               offset + limit,
               limit,
               resultSet,
@@ -112,28 +114,26 @@ const nodeInit: NodeInitializer = (RED): void => {
     });
   }
 
-  function getOneUser(node: ChirpstackUserManagementNode): void {
+  function getOneDevice(node: ChirpstackUserManagementNode): void {
     node.on("input", (msg, send, done) => {
-      const getUserRequest = new GetUserRequest();
+      const getDeviceRequest = new GetDeviceRequest();
 
-      if (typeof msg.payload === "number") {
-        getUserRequest.setId(msg.payload);
-      } else if (typeof msg.payload === "string") {
-        getUserRequest.setId(Number(msg.payload));
+      if (typeof msg.payload === "string") {
+        getDeviceRequest.setDevEui(msg.payload);
       } else {
-        node.error("no valid user id");
+        node.error("no valid device Eui");
         return;
       }
 
-      new UserServiceClient(
+      new DeviceServiceClient(
         node.chirpstackConnection.fullAddress,
         grpc.credentials.createInsecure()
       ).get(
-        getUserRequest,
+        getDeviceRequest,
         node.chirpstackConnection.grpcMetadata,
         null,
-        (error, getUserResponse) => {
-          msg.payload = getUserResponse?.getUser()?.toObject();
+        (error, getDeviceResponse) => {
+          msg.payload = getDeviceResponse?.getDevice()?.toObject();
           send(msg);
           done();
         }
@@ -141,31 +141,32 @@ const nodeInit: NodeInitializer = (RED): void => {
     });
   }
 
-  function createOneUser(node: ChirpstackUserManagementNode): void {
+  function createOneDevice(node: ChirpstackUserManagementNode): void {
     node.on("input", (msg, send, done) => {
-      const createUserRequest = new CreateUserRequest();
+      const createDeviceRequest = new CreateDeviceRequest();
       //eslint-disable-next-line @typescript-eslint/no-explicit-any
       const newObject: any = msg.payload;
-      const newUser = new User();
+      const device = new Device();
 
-      newUser.setId(newObject?.id);
-      newUser.setEmail(newObject?.email);
-      newUser.setIsActive(newObject?.isActive);
-      newUser.setIsAdmin(newObject?.isAdmin);
-      newUser.setNote(newObject?.note);
-      newUser.setSessionTtl(newObject?.sessionTtl);
+      device.setDevEui(newObject?.devEui);
+      device.setApplicationId(newObject?.applicationId);
+      device.setDescription(newObject?.description);
+      device.setDeviceProfileId(newObject?.deviceProfileId);
+      device.setIsDisabled(newObject?.isDisabled);
+      device.setName(newObject?.name);
+      device.setReferenceAltitude(newObject?.referenceAltitude);
+      device.setSkipFCntCheck(newObject?.skipFCntCheck);
 
-      createUserRequest.setUser(newUser);
-      createUserRequest.setPassword(newObject?.password);
+      createDeviceRequest.setDevice(device);
 
-      new UserServiceClient(
+      new DeviceServiceClient(
         node.chirpstackConnection.fullAddress,
         grpc.credentials.createInsecure()
       ).create(
-        createUserRequest,
+        createDeviceRequest,
         node.chirpstackConnection.grpcMetadata,
         null,
-        (error, createUserResponse) => {
+        (error, createDeviceResponse) => {
           if (error) {
             node.error(error);
             msg.payload = error;
@@ -173,7 +174,7 @@ const nodeInit: NodeInitializer = (RED): void => {
             done();
             return;
           }
-          msg.payload = createUserResponse?.toObject();
+          msg.payload = createDeviceResponse?.toObject();
           send(msg);
           done();
         }
@@ -181,27 +182,29 @@ const nodeInit: NodeInitializer = (RED): void => {
     });
   }
 
-  function updateOneUser(node: ChirpstackUserManagementNode): void {
+  function updateOneDevice(node: ChirpstackUserManagementNode): void {
     node.on("input", (msg, send, done) => {
       //eslint-disable-next-line @typescript-eslint/no-explicit-any
       const dirtyObject: any = msg.payload;
-      const dirtyUser = new User();
+      const dirtyDevice = new Device();
 
-      dirtyUser.setId(dirtyObject?.id);
-      dirtyUser.setEmail(dirtyObject?.email);
-      dirtyUser.setIsActive(dirtyObject?.isActive);
-      dirtyUser.setIsAdmin(dirtyObject?.isAdmin);
-      dirtyUser.setNote(dirtyObject?.note);
-      dirtyUser.setSessionTtl(dirtyObject?.sessionTtl);
+      dirtyDevice.setDevEui(dirtyObject?.devEui);
+      dirtyDevice.setApplicationId(dirtyObject?.applicationId);
+      dirtyDevice.setDescription(dirtyObject?.description);
+      dirtyDevice.setDeviceProfileId(dirtyObject?.deviceProfileId);
+      dirtyDevice.setIsDisabled(dirtyObject?.isDisabled);
+      dirtyDevice.setName(dirtyObject?.name);
+      dirtyDevice.setReferenceAltitude(dirtyObject?.referenceAltitude);
+      dirtyDevice.setSkipFCntCheck(dirtyObject?.skipFCntCheck);
 
-      const updateUserRequest = new UpdateUserRequest();
-      updateUserRequest.setUser(dirtyUser);
+      const updateDeviceRequest = new UpdateDeviceRequest();
+      updateDeviceRequest.setDevice(dirtyDevice);
 
-      new UserServiceClient(
+      new DeviceServiceClient(
         node.chirpstackConnection.fullAddress,
         grpc.credentials.createInsecure()
       ).update(
-        updateUserRequest,
+        updateDeviceRequest,
         node.chirpstackConnection.grpcMetadata,
         null,
         (error, res) => {
@@ -220,23 +223,21 @@ const nodeInit: NodeInitializer = (RED): void => {
     });
   }
 
-  function deleteOneUser(node: ChirpstackUserManagementNode): void {
+  function deleteOneDevice(node: ChirpstackUserManagementNode): void {
     node.on("input", (msg, send, done) => {
-      const deleteUserRequest = new DeleteUserRequest();
+      const deleteDeviceRequest = new DeleteDeviceRequest();
 
-      if (typeof msg.payload === "number") {
-        deleteUserRequest.setId(msg.payload);
-      } else if (typeof msg.payload === "string") {
-        deleteUserRequest.setId(Number(msg.payload));
+      if (typeof msg.payload === "string") {
+        deleteDeviceRequest.setDevEui(msg.payload);
       } else {
-        node.error("no valid user id");
+        node.error("no valid device Eui");
         return;
       }
-      new UserServiceClient(
+      new DeviceServiceClient(
         node.chirpstackConnection.fullAddress,
         grpc.credentials.createInsecure()
       ).delete(
-        deleteUserRequest,
+        deleteDeviceRequest,
         node.chirpstackConnection.grpcMetadata,
         null,
         (error, res) => {
@@ -256,8 +257,8 @@ const nodeInit: NodeInitializer = (RED): void => {
   }
 
   RED.nodes.registerType(
-    "chirpstack-user-management",
-    ChirpstackUserManagementNodeConstructor
+    "chirpstack-device-management",
+    ChirpstackDeviceManagementNodeConstructor
   );
 };
 

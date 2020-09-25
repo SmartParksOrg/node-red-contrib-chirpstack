@@ -1,10 +1,10 @@
 import { EditorRED } from "node-red";
-import { ChirpstackUserManagementEditorNodeProperties } from "./modules/types";
+import { ChirpstackDeviceManagementEditorNodeProperties } from "./modules/types";
 
 declare const RED: EditorRED;
 
-RED.nodes.registerType<ChirpstackUserManagementEditorNodeProperties>(
-  "chirpstack-user-management",
+RED.nodes.registerType<ChirpstackDeviceManagementEditorNodeProperties>(
+  "chirpstack-device-management",
   {
     category: "chirpstack",
     color: "#a6bbcf",
@@ -16,9 +16,9 @@ RED.nodes.registerType<ChirpstackUserManagementEditorNodeProperties>(
     inputs: 1,
     outputs: 1,
     icon: "chirpstack.png",
-    paletteLabel: "chirpstack user management",
+    paletteLabel: "chirpstack device management",
     label() {
-      return this.name || "chirpstack user management";
+      return this.name || "chirpstack device management";
     },
   }
 );
