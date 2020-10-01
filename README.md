@@ -11,7 +11,7 @@
     <img src="src/img/smp-logo-ret.jpg" alt="Logo" width="265" height="150">
   </a>
 
-  <h3 align="center">Smartparks Chirpstack Node-Red node</h3>
+  <h3 align="center">Smart Parks Chirpstack Node-Red node</h3>
 
   <p align="center">
     With this Node-Red node you can interface with the gRPC interface of your ChirpStack installation.
@@ -133,7 +133,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Authors
 
-- **Friso Modderman - SmartParks** - _Initial work_ - [adminfriso](https://github.com/adminfriso)
+- **Friso Modderman - Smart Parks** - _Initial work_ - [adminfriso](https://github.com/adminfriso)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
