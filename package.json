@@ -1,7 +1,10 @@
 {
   "name": "node-red-contrib-chirpstack",
-  "version": "0.2.2",
-  "description": "An adapter for node-red to easily connect to the chirp stack gRPC API.",
+  "version": "0.3.0",
+  "description": "An adapter for node-red to easily connect to the ChirpStack gRPC API.",
+  "keywords": [ "node-red", "chirpstack" ],
+  "author": "Friso Modderman",
+  "license": "MIT",
   "scripts": {
     "add-node": "node ./utils/add-node.js",
     "copy": "copyfiles -u 2 \"./src/nodes/**/*.{png,svg}\" \"./dist/nodes/\"",
@@ -16,16 +19,11 @@
     "lint": "prettier --ignore-path .eslintignore --check '**/*.{js,ts,md}'; eslint --ext .js,.ts .",
     "lint:fix": "prettier --ignore-path .eslintignore --write '**/*.{js,ts,md}'; eslint --ext .js,.ts . --fix"
   },
-  "author": "Friso Modderman",
-  "license": "MIT",
   "node-red": {
     "nodes": {
       "chirpstack-connection": "./dist/nodes/chirpstack-connection/chirpstack-connection.js",
-      "chirpstack-get-one-user": "./dist/nodes/chirpstack-get-one-user/chirpstack-get-one-user.js",
-      "chirpstack-get-all-users": "./dist/nodes/chirpstack-get-all-users/chirpstack-get-all-users.js",
-      "chirpstack-delete-one-user": "./dist/nodes/chirpstack-delete-one-user/chirpstack-delete-one-user.js",
-      "chirpstack-update-one-user": "./dist/nodes/chirpstack-update-one-user/chirpstack-update-one-user.js",
-      "chirpstack-create-one-user": "./dist/nodes/chirpstack-create-one-user/chirpstack-create-one-user.js"
+      "chirpstack-user-management": "./dist/nodes/chirpstack-user-management/chirpstack-user-management.js",
+      "chirpstack-device-management": "./dist/nodes/chirpstack-device-management/chirpstack-device-management.js"
     }
   },
   "dependencies": {
