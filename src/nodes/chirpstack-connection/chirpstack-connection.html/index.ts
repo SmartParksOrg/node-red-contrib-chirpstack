@@ -7,17 +7,15 @@ RED.nodes.registerType<ChirpstackConnectionEditorNodeProperties>(
   "chirpstack-connection",
   {
     category: "config",
-    color: "#a6bbcf",
+    color: "#2094f3",
     defaults: {
       host: { value: "localhost", required: true },
       port: { value: 8080, required: true, validate: RED.validators.number() },
       username: { value: "Username", required: true },
       password: { value: "Password", required: true, type: "password" },
     },
-    inputs: 1,
-    outputs: 1,
-    icon: "file.png",
-    paletteLabel: "chirpstack connection",
+    icon: "chirpstack.png",
+    paletteLabel: "ChirpStack Connection",
     label() {
       return this.host + ":" + this.port;
     },

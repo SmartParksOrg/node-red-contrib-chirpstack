@@ -1,89 +1,139 @@
-# Node-RED Node TypeScript Starter
 
-This is a quick-start template repository for creating new Node-RED node sets in TypeScript.
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
 
-## Project Structure
 
-```
-node-red-node-typescript-starter/
- ├──src/                             * source files of the node set
- │   ├──__tests__/                   * tests for the node set (test file names should match *.test.ts glob pattern)
- │   │   └──transform-text.test.ts   * tests for the transform-text node
- │   │
- │   └──nodes/                       * node set folder, where subfolder names = node types
- │       ├──shared/                  * folder for .ts files shared across multiple nodes in the node set
- │       │
- │       └──transform-text/          * source files of the transform-text node
- │           ├──icons/               * custom icons used by the node set in the editor
- │           │
- │           ├──modules/             * .ts modules for the runtime side (transform-text.js file) of the node
- │           │
- │           ├──shared/              * folder for .ts files shared between the runtime side (.js file) and the editor side (.html file) of the node
- │           │
- │           ├──transform-text.html/ * files for compiling and bundling into the editor side (transform-text.html file) of the node
- │           │   ├──modules/         * .ts modules
- │           │   ├──editor.html      * html template for the edit dialog
- │           │   ├──help.html        * html template for the help in the info tab
- │           │   └──index.ts         * entry file
- │           │
- |           └──transform-text.ts    * entry file for the runtime side (transform-text.js file) of the node
- |
- ├──package.json                     * dependencies and node types for the Node-RED runtime to load
- |
- ├──rollup.config.editor.json        * rollup config for building the editor side of the nodes
- |
- ├──tsconfig.json                    * base typescript config, for the code editor
- ├──tsconfig.runtime.json            * config for creating a production build of the runtime side of the nodes
- └──tsconfig.runtime.watch.json      * config for watching and incremental building the runtime side of the nodes
-```
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+  <a href="https://github.com/adminfriso/node-red-contrib-chirpstack">
+    <img src="src/img/smp-logo-ret.jpg" alt="Logo" width="265" height="150">
+  </a>
 
+  <h3 align="center">Smartparks Chirpstack Node-Red node</h3>
+
+  <p align="center">
+    With this Node-Red node you can interface with the gRPC interface of your ChirpStack installation.
+    <br />
+    <a href="https://github.com/adminfriso/node-red-contrib-chirpstack"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/adminfriso/node-red-contrib-chirpstack">View Demo</a>
+    ·
+    <a href="https://github.com/adminfriso/node-red-contrib-chirpstack/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/adminfriso/node-red-contrib-chirpstack/issues">Request Feature</a>
+  </p>
+</p>
+
+
+
+<!-- TABLE OF CONTENTS -->
+## Table of Contents
+
+* [About the Project](#about-the-project)
+  * [Built With](#built-with)
+* [Getting Started](#getting-started)
+  * [Prerequisites](#prerequisites)
+  * [Installation](#installation)
+* [Usage](#usage)
+* [Roadmap](#roadmap)
+* [Contributing](#contributing)
+* [License](#license)
+* [Authors](#authors)
+
+<!-- ABOUT THE PROJECT -->
+## About The Project
+This Node-Red core provides diverse nodes. In every node you can list, get, create, update and delete all relevant editable models.
+
+TODO: add refrence to complete wiki when in that stage
+
+### Built With
+
+* [Node-Red](https://github.com/node-red/node-red)
+* [Chirpstack API](https://github.com/brocaar/chirpstack-api)
+
+
+
+<!-- GETTING STARTED -->
 ## Getting Started
 
-1. Generate a new GitHub repository by clicking the `Use this template` button at the top of the repository homepage, then clone your new repo. Or you might just clone this repo: `git clone https://github.com/alexk111/node-red-node-typescript-starter.git` and cd into it: `cd node-red-node-typescript-starter`.
-2. This project is designed to work with `npm`.
-3. Install dependencies: `npm install`.
+To get a local copy up and running follow these simple steps.
 
-## Adding Nodes
+### Prerequisites
 
-You can quickly scaffold a new node and add it to the node set. Use the following command to create `my-new-node-type` node:
-
+* npm
+```sh
+sudo npm install npm@latest -g
 ```
-npm run add-node my-new-node-type
-```
-
-The node generator is based on mustache templates. At the moment there are two templates available:
-
-- `blank` (used by default) - basic node for Node-RED >=1.0
-- `blank-0` - node with a backward compatibility for running on Node-RED <1.0
-
-To generate a node using a template called `my-template`, enter this command:
-
-```
-npm run add-node my-new-node-type my-template
+* node-red
+```sh
+sudo npm install -g --unsafe-perm node-red
 ```
 
-To make your custom-made template available, add it to `./utils/templates/`.
+### Installation
 
-## Developing Nodes
-
-Build & Test in Watch mode:
-
+1. Clone the repo
+```sh
+git clone https://github.com/adminfriso/node-red-contrib-chirpstack.git
 ```
-npm run dev
+2. Install NPM packages
+```sh
+npm install
 ```
-
-## Building Node Set
-
-Create a production build:
-
-```
-npm run build
+3. Start Node-Red
+```sh
+node-red
 ```
 
-## Testing Node Set in Node-RED
 
-[Read Node-RED docs](https://nodered.org/docs/creating-nodes/first-node#testing-your-node-in-node-red) on how to install the node set into your Node-RED runtime.
+<!-- USAGE EXAMPLES -->
+## Usage
+TODO: insert examples
 
+Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+
+_For more examples, please refer to the [Documentation](https://example.com)_
+
+<!-- ROADMAP -->
+## Roadmap
+
+See the [open issues](https://github.com/adminfriso/node-red-contrib-chirpstack/issues) for a list of proposed features (and known issues).
+
+<!-- CONTRIBUTING -->
+## Contributing
+
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+<!-- LICENSE -->
 ## License
 
-MIT © Smart Parks
+Distributed under the MIT License. See `LICENSE` for more information.
+
+<!-- Authors -->
+## Authors
+
+* **Friso Modderman - SmartParks** - *Initial work* - [adminfriso](https://github.com/adminfriso)
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/adminfriso/node-red-contrib-chirpstack.svg?style=flat-square
+[contributors-url]: https://github.com/adminfriso/node-red-contrib-chirpstack/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/adminfriso/node-red-contrib-chirpstack.svg?style=flat-square
+[forks-url]: https://github.com/adminfriso/node-red-contrib-chirpstack/network/members
+[stars-shield]: https://img.shields.io/github/stars/adminfriso/node-red-contrib-chirpstack.svg?style=flat-square
+[stars-url]: https://github.com/adminfriso/node-red-contrib-chirpstack/stargazers
+[issues-shield]: https://img.shields.io/github/issues/adminfriso/node-red-contrib-chirpstack.svg?style=flat-square
+[issues-url]: https://github.com/adminfriso/node-red-contrib-chirpstack/issues
+[license-shield]: https://img.shields.io/github/license/adminfriso/node-red-contrib-chirpstack.svg?style=flat-square
+[license-url]: https://github.com/adminfriso/node-red-contrib-chirpstack/blob/master/LICENSE
+[product-screenshot]: src/img/screenshot.png

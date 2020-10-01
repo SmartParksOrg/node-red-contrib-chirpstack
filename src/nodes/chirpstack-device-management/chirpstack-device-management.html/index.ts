@@ -7,7 +7,7 @@ RED.nodes.registerType<ChirpstackDeviceManagementEditorNodeProperties>(
   "chirpstack-device-management",
   {
     category: "chirpstack",
-    color: "#a6bbcf",
+    color: "#2094f3",
     defaults: {
       connection: { value: "", type: "chirpstack-connection" },
       name: { value: "" },
@@ -16,9 +16,9 @@ RED.nodes.registerType<ChirpstackDeviceManagementEditorNodeProperties>(
     inputs: 1,
     outputs: 1,
     icon: "chirpstack.png",
-    paletteLabel: "chirpstack device management",
+    paletteLabel: "ChirpStack Devices",
     label() {
-      return this.name || "chirpstack device management";
+      return this.name || "Chirpstack Devices";
     },
   }
 );

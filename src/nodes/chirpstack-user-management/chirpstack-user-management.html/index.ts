@@ -7,7 +7,7 @@ RED.nodes.registerType<ChirpstackUserManagementEditorNodeProperties>(
   "chirpstack-user-management",
   {
     category: "chirpstack",
-    color: "#a6bbcf",
+    color: "#2094f3",
     defaults: {
       connection: { value: "", type: "chirpstack-connection" },
       name: { value: "" },
@@ -16,9 +16,9 @@ RED.nodes.registerType<ChirpstackUserManagementEditorNodeProperties>(
     inputs: 1,
     outputs: 1,
     icon: "chirpstack.png",
-    paletteLabel: "chirpstack user management",
+    paletteLabel: "ChirpStack Users",
     label() {
-      return this.name || "chirpstack user management";
+      return this.name || "ChirpStack Users";
     },
   }
 );
