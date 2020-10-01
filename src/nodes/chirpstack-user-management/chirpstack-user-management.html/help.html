@@ -1,0 +1,119 @@
+<script data-help-name="chirpstack-user-management" type="text/html">
+<p>Create, Edit, Update, Delete and List all users in your configured chirpstack environment.</p>
+<p>find your description sorted by action.</p>
+
+<h3>List All</h3>
+<h4>Inputs</h4>
+<dl class="message-properties">
+	<dt>payload
+		<span class="property-type">none</span>
+	</dt>
+	<dd> All empty or full inputs will trigger a request.</dd>
+</dl>
+
+<h4>Outputs</h4>
+<dl class="message-properties">
+	<dt>payload <span class="property-type">object</span></dt>
+	<dd> A list of all requested user objects.</dd>
+</dl>
+
+<h3>Get One</h3>
+<h4>Inputs</h4>
+<dl class="message-properties">
+	<dt>payload
+		<span class="property-type">string</span>
+	</dt>
+	<dd> The payload is the ID of the user.</dd>
+</dl>
+
+<h4>Outputs</h4>
+<dl class="message-properties">
+	<dt>payload <span class="property-type">object</span></dt>
+	<dd> The user object selected by the ID.</dd>
+</dl>
+
+<h3>Create One</h3>
+<h4>Inputs</h4>
+<dl class="message-properties">
+	<dt>payload
+		<span class="property-type">object | json</span>
+	</dt>
+	<dd> A user object with all parameters.</dd>
+</dl>
+
+<h4>Outputs</h4>
+<dl class="message-properties">
+	<dt>payload <span class="property-type">Empty</span></dt>
+	<dd> An empty object if successful.</dd>
+</dl>
+
+<h3>Update One</h3>
+<h4>Inputs</h4>
+<dl class="message-properties">
+	<dt>payload
+		<span class="property-type">object | json</span>
+	</dt>
+	<dd> An updated user object with all parameters.</dd>
+</dl>
+
+<h4>Outputs</h4>
+<dl class="message-properties">
+	<dt>payload <span class="property-type">Empty</span></dt>
+	<dd> An empty object if successful.</dd>
+</dl>
+
+<h3>Delete One</h3>
+<h4>Inputs</h4>
+<dl class="message-properties">
+	<dt>payload
+		<span class="property-type">string</span>
+	</dt>
+	<dd> A string with the user Eui to select the user to delete.</dd>
+</dl>
+
+<h4>Outputs</h4>
+<dl class="message-properties">
+	<dt>payload <span class="property-type">Empty</span></dt>
+	<dd> An empty object if successful.</dd>
+</dl>
+
+<h3>Details</h3>
+<p>
+	<code>msg.payload</code> Is used as the payload to the api request.<br/>
+	The result set will always be published in <code>msg.payload</code> as an object.
+</p>
+<p> A <code>user object</code> has the following attributes.</p>
+
+<dl class="message-properties">
+	<dt class="optional">id
+		<span class="property-type">string</span>
+	</dt>
+	<dd> User ID. Will be set automatically on create.</dd>
+	<dt class="optional">email
+		<span class="property-type">string</span>
+	</dt>
+	<dd> E-mail of the user.</dd>
+	<dt class="optional">isActive
+		<span class="property-type">boolean</span>
+	</dt>
+	<dd> Set to false to disable the user.</dd>
+	<dt class="optional">isAdmin
+		<span class="property-type">boolean</span>
+	</dt>
+	<dd> Set to true to make the user a global administrator.</dd>
+	<dt class="optional">note
+		<span class="property-type">string</span>
+	</dt>
+	<dd> Optional note to store with the user.</dd>
+	<dt class="optional">sessionTTL
+		<span class="property-type">integer</span>
+	</dt>
+	<dd> The session timeout, in minutes.</dd>
+</dl>
+
+<h3>References</h3>
+<ul>
+	<li><a href="https://www.chirpstack.io/application-server/api/#restful-json-interface" target="_blank">Chirpstack API docs</a> - description of where to find your essentials.</li>
+	<li><a href="https://github.com/adminfriso/node-red-contrib-chirpstack" target="_blank">GitHub</a> - the chirpstack contrib repository.</li>
+</ul>
+</script>
