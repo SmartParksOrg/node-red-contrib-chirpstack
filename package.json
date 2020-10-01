@@ -1,7 +1,10 @@
 {
   "name": "node-red-contrib-chirpstack",
-  "version": "0.2.2",
-  "description": "An adapter for node-red to easily connect to the chirp stack gRPC API.",
+  "version": "0.3.0",
+  "description": "An adapter for node-red to easily connect to the ChirpStack gRPC API.",
+  "keywords": [ "node-red", "chirpstack" ],
+  "author": "Friso Modderman",
+  "license": "MIT",
   "scripts": {
     "add-node": "node ./utils/add-node.js",
     "copy": "copyfiles -u 2 \"./src/nodes/**/*.{png,svg}\" \"./dist/nodes/\"",
@@ -16,13 +19,11 @@
     "lint": "prettier --ignore-path .eslintignore --check '**/*.{js,ts,md}'; eslint --ext .js,.ts .",
     "lint:fix": "prettier --ignore-path .eslintignore --write '**/*.{js,ts,md}'; eslint --ext .js,.ts . --fix"
   },
-  "author": "Friso Modderman",
-  "license": "MIT",
   "node-red": {
     "nodes": {
-      "transform-text": "./dist/nodes/transform-text/transform-text.js",
-      "chirpstack-base": "./dist/nodes/chirpstack-base/chirpstack-base.js",
-      "chirpstack-connection": "./dist/nodes/chirpstack-connection/chirpstack-connection.js"
+      "chirpstack-connection": "./dist/nodes/chirpstack-connection/chirpstack-connection.js",
+      "chirpstack-user-management": "./dist/nodes/chirpstack-user-management/chirpstack-user-management.js",
+      "chirpstack-device-management": "./dist/nodes/chirpstack-device-management/chirpstack-device-management.js"
     }
   },
   "dependencies": {
