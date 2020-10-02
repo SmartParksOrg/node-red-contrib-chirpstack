@@ -28,7 +28,8 @@
       "chirpstack-user-management": "./dist/nodes/chirpstack-user-management/chirpstack-user-management.js",
       "chirpstack-device-management": "./dist/nodes/chirpstack-device-management/chirpstack-device-management.js",
       "chirpstack-application-management": "./dist/nodes/chirpstack-application-management/chirpstack-application-management.js",
-      "chirpstack-gateway-management": "./dist/nodes/chirpstack-gateway-management/chirpstack-gateway-management.js"
+      "chirpstack-gateway-management": "./dist/nodes/chirpstack-gateway-management/chirpstack-gateway-management.js",
+      "chirpstack-organization-management": "./dist/nodes/chirpstack-organization-management/chirpstack-organization-management.js"
     }
   },
   "dependencies": {

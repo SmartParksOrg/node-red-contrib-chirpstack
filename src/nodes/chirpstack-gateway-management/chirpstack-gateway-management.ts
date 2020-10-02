@@ -120,7 +120,7 @@ const nodeInit: NodeInitializer = (RED): void => {
       if (typeof msg.payload === "string") {
         getGatewayRequest.setId(msg.payload);
       } else {
-        node.error("no valid gateway Eui");
+        node.error("no valid gateway id");
         return;
       }
 
@@ -225,7 +225,7 @@ const nodeInit: NodeInitializer = (RED): void => {
       if (typeof msg.payload === "string") {
         deleteGatewayRequest.setId(msg.payload);
       } else {
-        node.error("no valid gateway Eui");
+        node.error("no valid gateway id");
         return;
       }
       new GatewayServiceClient(

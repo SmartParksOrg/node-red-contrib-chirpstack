@@ -1,0 +1,124 @@
+<script data-help-name="chirpstack-organisation-management" type="text/html">
+<p>Create, Edit, Update, Delete and List all organizations in your configured chirpstack environment.</p>
+<p>find your description sorted by action.</p>
+
+<h3>List All</h3>
+<h4>Inputs</h4>
+<dl class="message-properties">
+	<dt>payload
+		<span class="property-type">none</span>
+	</dt>
+	<dd> All empty or full inputs will trigger a request.</dd>
+</dl>
+
+<h4>Outputs</h4>
+<dl class="message-properties">
+	<dt>payload <span class="property-type">object</span></dt>
+	<dd> A list of all requested organization objects.</dd>
+</dl>
+
+<h3>Get One</h3>
+<h4>Inputs</h4>
+<dl class="message-properties">
+	<dt>payload
+		<span class="property-type">string</span>
+	</dt>
+	<dd> The payload is the ID of the organization.</dd>
+</dl>
+
+<h4>Outputs</h4>
+<dl class="message-properties">
+	<dt>payload <span class="property-type">object</span></dt>
+	<dd> The organization object selected by the ID.</dd>
+</dl>
+
+<h3>Create One</h3>
+<h4>Inputs</h4>
+<dl class="message-properties">
+	<dt>payload
+		<span class="property-type">object | json</span>
+	</dt>
+	<dd> A organization object with all parameters.</dd>
+</dl>
+
+<h4>Outputs</h4>
+<dl class="message-properties">
+	<dt>payload <span class="property-type">Empty</span></dt>
+	<dd> An empty object if successful.</dd>
+</dl>
+
+<h3>Update One</h3>
+<h4>Inputs</h4>
+<dl class="message-properties">
+	<dt>payload
+		<span class="property-type">object | json</span>
+	</dt>
+	<dd> An updated organization object with all parameters.</dd>
+</dl>
+
+<h4>Outputs</h4>
+<dl class="message-properties">
+	<dt>payload <span class="property-type">Empty</span></dt>
+	<dd> An empty object if successful.</dd>
+</dl>
+
+<h3>Delete One</h3>
+<h4>Inputs</h4>
+<dl class="message-properties">
+	<dt>payload
+		<span class="property-type">string</span>
+	</dt>
+	<dd> A string with the organization Eui to select the organization to delete.</dd>
+</dl>
+
+<h4>Outputs</h4>
+<dl class="message-properties">
+	<dt>payload <span class="property-type">Empty</span></dt>
+	<dd> An empty object if successful.</dd>
+</dl>
+
+<h3>Details</h3>
+<p>
+	<code>msg.payload</code> Is used as the payload to the api request.<br/>
+	The result set will always be published in <code>msg.payload</code> as an object.
+</p>
+<p> A <code>organization object</code> has the following attributes.</p>
+
+<dl class="message-properties">
+	<dt class="optional">id
+		<span class="property-type">number</span>
+	</dt>
+	<dd> Organization ID. Will be set automatically on create.</dd>
+
+	<dt class="optional">name
+		<span class="property-type">string</span>
+	</dt>
+	<dd> Organization name.</dd>
+
+	<dt class="optional">displayName
+		<span class="property-type">string</span>
+	</dt>
+	<dd> Organization display name.</dd>
+
+	<dt class="optional">canHaveGateways
+		<span class="property-type">boolean</span>
+	</dt>
+	<dd> Can the organization create and "own" Gateways?</dd>
+
+	<dt class="optional">maxDeviceCount
+		<span class="property-type">number</span>
+	</dt>
+	<dd> Max. device count for organization. When set to 0, the organization can have unlimited devices. </dd>
+
+	<dt class="optional">maxGatewayCount
+		<span class="property-type">number</span>
+	</dt>
+	<dd> Max. gateway count for organization. When set to 0, the organization can have unlimited gateways. </dd>
+</dl>
+
+<h3>References</h3>
+<ul>
+	<li><a href="https://www.chirpstack.io/application-server/api/#restful-json-interface" target="_blank">Chirpstack API docs</a> - description of where to find your essentials.</li>
+	<li><a href="https://github.com/adminfriso/node-red-contrib-chirpstack" target="_blank">GitHub</a> - the chirpstack contrib repository.</li>
+</ul>
+</script>
