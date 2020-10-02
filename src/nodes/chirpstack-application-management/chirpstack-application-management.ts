@@ -4,7 +4,6 @@ import {
   ChirpstackApplicationManagementNodeDef,
 } from "./modules/types";
 import { setConnection } from "../shared/setConnection";
-import { ChirpstackUserManagementNode } from "../chirpstack-user-management/modules/types";
 
 import grpc from "grpc";
 import {
@@ -53,7 +52,9 @@ const nodeInit: NodeInitializer = (RED): void => {
     }
   }
 
-  function listAllApplications(node: ChirpstackUserManagementNode): void {
+  function listAllApplications(
+    node: ChirpstackApplicationManagementNode
+  ): void {
     node.on("input", (msg, send, done) => {
       const listApplicationRequest = new ListApplicationRequest();
       listApplicationRequest.setLimit(5);
@@ -114,7 +115,7 @@ const nodeInit: NodeInitializer = (RED): void => {
     });
   }
 
-  function getOneApplication(node: ChirpstackUserManagementNode): void {
+  function getOneApplication(node: ChirpstackApplicationManagementNode): void {
     node.on("input", (msg, send, done) => {
       const getApplicationRequest = new GetApplicationRequest();
       if (typeof msg.payload === "number") {
@@ -142,7 +143,9 @@ const nodeInit: NodeInitializer = (RED): void => {
     });
   }
 
-  function createOneApplication(node: ChirpstackUserManagementNode): void {
+  function createOneApplication(
+    node: ChirpstackApplicationManagementNode
+  ): void {
     node.on("input", (msg, send, done) => {
       const createApplicationRequest = new CreateApplicationRequest();
       //eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -183,7 +186,9 @@ const nodeInit: NodeInitializer = (RED): void => {
     });
   }
 
-  function updateOneApplication(node: ChirpstackUserManagementNode): void {
+  function updateOneApplication(
+    node: ChirpstackApplicationManagementNode
+  ): void {
     node.on("input", (msg, send, done) => {
       //eslint-disable-next-line @typescript-eslint/no-explicit-any
       const dirtyObject: any = msg.payload;
@@ -228,7 +233,9 @@ const nodeInit: NodeInitializer = (RED): void => {
     });
   }
 
-  function deleteOneApplication(node: ChirpstackUserManagementNode): void {
+  function deleteOneApplication(
+    node: ChirpstackApplicationManagementNode
+  ): void {
     node.on("input", (msg, send, done) => {
       const deleteApplicationRequest = new DeleteApplicationRequest();
 

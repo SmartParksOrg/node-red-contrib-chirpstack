@@ -1,45 +1,45 @@
 import { NodeInitializer } from "node-red";
 import {
-  ChirpstackDeviceManagementNode,
-  ChirpstackDeviceManagementNodeDef,
+  ChirpstackGatewayManagementNode,
+  ChirpstackGatewayManagementNodeDef,
 } from "./modules/types";
 import { setConnection } from "../shared/setConnection";
 
 import grpc from "grpc";
 import {
-  DeviceListItem,
-  ListDeviceRequest,
-  GetDeviceRequest,
-  CreateDeviceRequest,
-  Device,
-  UpdateDeviceRequest,
-  DeleteDeviceRequest,
-} from "@chirpstack/chirpstack-api/as/external/api/device_pb";
-import { DeviceServiceClient } from "@chirpstack/chirpstack-api/as/external/api/device_grpc_pb";
+  GatewayListItem,
+  ListGatewayRequest,
+  GetGatewayRequest,
+  CreateGatewayRequest,
+  Gateway,
+  UpdateGatewayRequest,
+  DeleteGatewayRequest,
+} from "@chirpstack/chirpstack-api/as/external/api/gateway_pb";
+import { GatewayServiceClient } from "@chirpstack/chirpstack-api/as/external/api/gateway_grpc_pb";
 
 const nodeInit: NodeInitializer = (RED): void => {
-  function ChirpstackDeviceManagementNodeConstructor(
-    this: ChirpstackDeviceManagementNode,
-    config: ChirpstackDeviceManagementNodeDef
+  function ChirpstackGatewayManagementNodeConstructor(
+    this: ChirpstackGatewayManagementNode,
+    config: ChirpstackGatewayManagementNodeDef
   ): void {
     RED.nodes.createNode(this, config);
     this.chirpstackConnection = setConnection(this, config, RED);
 
     switch (config.action) {
       case "list":
-        listAllDevices(this);
+        listAllGateways(this);
         break;
       case "get":
-        getOneDevice(this);
+        getOneGateway(this);
         break;
       case "create":
-        createOneDevice(this);
+        createOneGateway(this);
         break;
       case "update":
-        updateOneDevice(this);
+        updateOneGateway(this);
         break;
       case "delete":
-        deleteOneDevice(this);
+        deleteOneGateway(this);
         break;
       default:
         this.on("input", (msg, send, done) => {
@@ -52,27 +52,27 @@ const nodeInit: NodeInitializer = (RED): void => {
     }
   }
 
-  function listAllDevices(node: ChirpstackDeviceManagementNode): void {
+  function listAllGateways(node: ChirpstackGatewayManagementNode): void {
     node.on("input", (msg, send, done) => {
-      const listDeviceRequest = new ListDeviceRequest();
-      listDeviceRequest.setLimit(5);
-      listDeviceRequest.getOffset();
+      const listGatewayRequest = new ListGatewayRequest();
+      listGatewayRequest.setLimit(5);
+      listGatewayRequest.getOffset();
 
-      const results: DeviceListItem[] = [];
-      const client = new DeviceServiceClient(
+      const results: GatewayListItem[] = [];
+      const client = new GatewayServiceClient(
         node.chirpstackConnection.fullAddress,
         grpc.credentials.createInsecure()
       );
 
-      handleListAllDevicesRequest(
+      handleListAllGatewaysRequest(
         0,
         10,
         results,
         client,
         node.chirpstackConnection.grpcMetadata
-      ).then((deviceList) => {
+      ).then((gatewayList) => {
         const nodeRedResponse: unknown[] = [];
-        deviceList.forEach((item) => {
+        gatewayList.forEach((item) => {
           nodeRedResponse.push(item.toObject());
         });
         msg.payload = nodeRedResponse;
@@ -82,14 +82,14 @@ const nodeInit: NodeInitializer = (RED): void => {
     });
   }
 
-  function handleListAllDevicesRequest(
+  function handleListAllGatewaysRequest(
     offset: number,
     limit: number,
-    resultSet: DeviceListItem[],
-    client: DeviceServiceClient,
+    resultSet: GatewayListItem[],
+    client: GatewayServiceClient,
     metaData: grpc.Metadata
-  ): Promise<DeviceListItem[]> {
-    const request = new ListDeviceRequest();
+  ): Promise<GatewayListItem[]> {
+    const request = new ListGatewayRequest();
     request.setLimit(limit);
     request.setOffset(offset);
     return new Promise((resolve) => {
@@ -99,7 +99,7 @@ const nodeInit: NodeInitializer = (RED): void => {
         });
         if (offset + limit < (response?.getTotalCount() || 0)) {
           return resolve(
-            handleListAllDevicesRequest(
+            handleListAllGatewaysRequest(
               offset + limit,
               limit,
               resultSet,
@@ -113,26 +113,26 @@ const nodeInit: NodeInitializer = (RED): void => {
     });
   }
 
-  function getOneDevice(node: ChirpstackDeviceManagementNode): void {
+  function getOneGateway(node: ChirpstackGatewayManagementNode): void {
     node.on("input", (msg, send, done) => {
-      const getDeviceRequest = new GetDeviceRequest();
+      const getGatewayRequest = new GetGatewayRequest();
 
       if (typeof msg.payload === "string") {
-        getDeviceRequest.setDevEui(msg.payload);
+        getGatewayRequest.setId(msg.payload);
       } else {
-        node.error("no valid device Eui");
+        node.error("no valid gateway Eui");
         return;
       }
 
-      new DeviceServiceClient(
+      new GatewayServiceClient(
         node.chirpstackConnection.fullAddress,
         grpc.credentials.createInsecure()
       ).get(
-        getDeviceRequest,
+        getGatewayRequest,
         node.chirpstackConnection.grpcMetadata,
         null,
-        (error, getDeviceResponse) => {
-          msg.payload = getDeviceResponse?.getDevice()?.toObject();
+        (error, getGatewayResponse) => {
+          msg.payload = getGatewayResponse?.getGateway()?.toObject();
           send(msg);
           done();
         }
@@ -140,32 +140,30 @@ const nodeInit: NodeInitializer = (RED): void => {
     });
   }
 
-  function createOneDevice(node: ChirpstackDeviceManagementNode): void {
+  function createOneGateway(node: ChirpstackGatewayManagementNode): void {
     node.on("input", (msg, send, done) => {
-      const createDeviceRequest = new CreateDeviceRequest();
+      const createGatewayRequest = new CreateGatewayRequest();
       //eslint-disable-next-line @typescript-eslint/no-explicit-any
       const newObject: any = msg.payload;
-      const device = new Device();
+      const gateway = new Gateway();
 
-      device.setDevEui(newObject?.devEui);
-      device.setApplicationId(newObject?.applicationId);
-      device.setDescription(newObject?.description);
-      device.setDeviceProfileId(newObject?.deviceProfileId);
-      device.setIsDisabled(newObject?.isDisabled);
-      device.setName(newObject?.name);
-      device.setReferenceAltitude(newObject?.referenceAltitude);
-      device.setSkipFCntCheck(newObject?.skipFCntCheck);
+      gateway.setId(newObject?.id);
+      gateway.setDescription(newObject?.description);
+      gateway.setName(newObject?.name);
+      gateway.setOrganizationId(newObject?.organizationId);
+      gateway.setNetworkServerId(newObject?.networkServerId);
+      gateway.setLocation(newObject?.location);
 
-      createDeviceRequest.setDevice(device);
+      createGatewayRequest.setGateway(gateway);
 
-      new DeviceServiceClient(
+      new GatewayServiceClient(
         node.chirpstackConnection.fullAddress,
         grpc.credentials.createInsecure()
       ).create(
-        createDeviceRequest,
+        createGatewayRequest,
         node.chirpstackConnection.grpcMetadata,
         null,
-        (error, createDeviceResponse) => {
+        (error, createGatewayResponse) => {
           if (error) {
             node.error(error);
             msg.payload = error;
@@ -173,7 +171,7 @@ const nodeInit: NodeInitializer = (RED): void => {
             done();
             return;
           }
-          msg.payload = createDeviceResponse?.toObject();
+          msg.payload = createGatewayResponse?.toObject();
           send(msg);
           done();
         }
@@ -181,29 +179,27 @@ const nodeInit: NodeInitializer = (RED): void => {
     });
   }
 
-  function updateOneDevice(node: ChirpstackDeviceManagementNode): void {
+  function updateOneGateway(node: ChirpstackGatewayManagementNode): void {
     node.on("input", (msg, send, done) => {
       //eslint-disable-next-line @typescript-eslint/no-explicit-any
       const dirtyObject: any = msg.payload;
-      const dirtyDevice = new Device();
+      const dirtyGateway = new Gateway();
 
-      dirtyDevice.setDevEui(dirtyObject?.devEui);
-      dirtyDevice.setApplicationId(dirtyObject?.applicationId);
-      dirtyDevice.setDescription(dirtyObject?.description);
-      dirtyDevice.setDeviceProfileId(dirtyObject?.deviceProfileId);
-      dirtyDevice.setIsDisabled(dirtyObject?.isDisabled);
-      dirtyDevice.setName(dirtyObject?.name);
-      dirtyDevice.setReferenceAltitude(dirtyObject?.referenceAltitude);
-      dirtyDevice.setSkipFCntCheck(dirtyObject?.skipFCntCheck);
+      dirtyGateway.setId(dirtyObject?.id);
+      dirtyGateway.setDescription(dirtyObject?.description);
+      dirtyGateway.setName(dirtyObject?.name);
+      dirtyGateway.setOrganizationId(dirtyObject?.organizationId);
+      dirtyGateway.setNetworkServerId(dirtyObject?.networkServerId);
+      dirtyGateway.setLocation(dirtyObject?.location);
 
-      const updateDeviceRequest = new UpdateDeviceRequest();
-      updateDeviceRequest.setDevice(dirtyDevice);
+      const updateGatewayRequest = new UpdateGatewayRequest();
+      updateGatewayRequest.setGateway(dirtyGateway);
 
-      new DeviceServiceClient(
+      new GatewayServiceClient(
         node.chirpstackConnection.fullAddress,
         grpc.credentials.createInsecure()
       ).update(
-        updateDeviceRequest,
+        updateGatewayRequest,
         node.chirpstackConnection.grpcMetadata,
         null,
         (error, res) => {
@@ -222,21 +218,21 @@ const nodeInit: NodeInitializer = (RED): void => {
     });
   }
 
-  function deleteOneDevice(node: ChirpstackDeviceManagementNode): void {
+  function deleteOneGateway(node: ChirpstackGatewayManagementNode): void {
     node.on("input", (msg, send, done) => {
-      const deleteDeviceRequest = new DeleteDeviceRequest();
+      const deleteGatewayRequest = new DeleteGatewayRequest();
 
       if (typeof msg.payload === "string") {
-        deleteDeviceRequest.setDevEui(msg.payload);
+        deleteGatewayRequest.setId(msg.payload);
       } else {
-        node.error("no valid device Eui");
+        node.error("no valid gateway Eui");
         return;
       }
-      new DeviceServiceClient(
+      new GatewayServiceClient(
         node.chirpstackConnection.fullAddress,
         grpc.credentials.createInsecure()
       ).delete(
-        deleteDeviceRequest,
+        deleteGatewayRequest,
         node.chirpstackConnection.grpcMetadata,
         null,
         (error, res) => {
@@ -256,8 +252,8 @@ const nodeInit: NodeInitializer = (RED): void => {
   }
 
   RED.nodes.registerType(
-    "chirpstack-device-management",
-    ChirpstackDeviceManagementNodeConstructor
+    "chirpstack-gateway-management",
+    ChirpstackGatewayManagementNodeConstructor
   );
 };
 
