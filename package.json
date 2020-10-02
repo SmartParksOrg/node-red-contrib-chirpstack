@@ -2,7 +2,10 @@
   "name": "node-red-contrib-chirpstack",
   "version": "0.3.0",
   "description": "An adapter for node-red to easily connect to the ChirpStack gRPC API.",
-  "keywords": [ "node-red", "chirpstack" ],
+  "keywords": [
+    "node-red",
+    "chirpstack"
+  ],
   "author": "Friso Modderman",
   "license": "MIT",
   "scripts": {
@@ -23,7 +26,8 @@
     "nodes": {
       "chirpstack-connection": "./dist/nodes/chirpstack-connection/chirpstack-connection.js",
       "chirpstack-user-management": "./dist/nodes/chirpstack-user-management/chirpstack-user-management.js",
-      "chirpstack-device-management": "./dist/nodes/chirpstack-device-management/chirpstack-device-management.js"
+      "chirpstack-device-management": "./dist/nodes/chirpstack-device-management/chirpstack-device-management.js",
+      "chirpstack-application-management": "./dist/nodes/chirpstack-application-management/chirpstack-application-management.js"
     }
   },
   "dependencies": {
