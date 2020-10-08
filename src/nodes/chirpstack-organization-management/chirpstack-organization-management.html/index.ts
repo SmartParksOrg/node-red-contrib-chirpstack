@@ -4,7 +4,7 @@ import { ChirpstackOrganizationManagementEditorNodeProperties } from "./modules/
 declare const RED: EditorRED;
 
 RED.nodes.registerType<ChirpstackOrganizationManagementEditorNodeProperties>(
- "chirpstack-organization-management",
+  "chirpstack-organization-management",
   {
     category: "chirpstack",
     color: "#2094f3",
