@@ -4,13 +4,14 @@
     "description": "An adapter for node-red to easily connect to the ChirpStack gRPC API.",
     "keywords": [
         "node-red",
-        "chirpstack"
+        "chirpstack",
+        "Smart Parks"
     ],
     "repository": {
         "type": "git",
         "url": "git://github.com/adminfriso/node-red-contrib-chirpstack.git"
     },
-    "author": "Friso Modderman",
+    "author": "Smart Parks",
     "license": "MIT",
     "scripts": {
         "add-node": "node ./utils/add-node.js",
