@@ -155,6 +155,14 @@ const nodeInit: NodeInitializer = (RED): void => {
       device.setName(newObject?.name);
       device.setReferenceAltitude(newObject?.referenceAltitude);
       device.setSkipFCntCheck(newObject?.skipFCntCheck);
+      //eslint-disable-next-line @typescript-eslint/no-explicit-any
+      newObject?.tagsMap.forEach((tag: any) => {
+        device.getTagsMap().set(tag[0], tag[1]);
+      });
+      //eslint-disable-next-line @typescript-eslint/no-explicit-any
+      newObject?.variablesMap.forEach((variable: any) => {
+        device.getVariablesMap().set(variable[0], variable[1]);
+      });
 
       createDeviceRequest.setDevice(device);
 
@@ -195,6 +203,14 @@ const nodeInit: NodeInitializer = (RED): void => {
       dirtyDevice.setName(dirtyObject?.name);
       dirtyDevice.setReferenceAltitude(dirtyObject?.referenceAltitude);
       dirtyDevice.setSkipFCntCheck(dirtyObject?.skipFCntCheck);
+      //eslint-disable-next-line @typescript-eslint/no-explicit-any
+      dirtyObject?.tagsMap.forEach((tag: any) => {
+        dirtyDevice.getTagsMap().set(tag[0], tag[1]);
+      });
+      //eslint-disable-next-line @typescript-eslint/no-explicit-any
+      dirtyObject?.variablesMap.forEach((variable: any) => {
+        dirtyDevice.getVariablesMap().set(variable[0], variable[1]);
+      });
 
       const updateDeviceRequest = new UpdateDeviceRequest();
       updateDeviceRequest.setDevice(dirtyDevice);
