@@ -1,86 +1,91 @@
 {
-    "name": "node-red-contrib-chirpstack",
-    "version": "0.3.0",
-    "description": "An adapter for node-red to easily connect to the ChirpStack gRPC API.",
-    "keywords": [
-        "node-red",
-        "chirpstack",
-        "Smart Parks"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/adminfriso/node-red-contrib-chirpstack.git"
-    },
-    "author": "Smart Parks",
-    "license": "MIT",
-    "scripts": {
-        "add-node": "node ./utils/add-node.js",
-        "copy": "copyfiles -u 2 \"./src/nodes/**/*.{png,svg}\" \"./dist/nodes/\"",
-        "build:editor": "rollup -c rollup.config.editor.js",
-        "build:editor:watch": "rollup -c rollup.config.editor.js -w",
-        "build:runtime": "tsc -p tsconfig.runtime.json",
-        "build:runtime:watch": "tsc -p tsconfig.runtime.watch.json --watch --preserveWatchOutput",
-        "build": "rm -rf dist && npm run copy && npm run build:editor && npm run build:runtime",
-        "test": "jest --forceExit --detectOpenHandles --colors",
-        "test:watch": "jest --forceExit --detectOpenHandles --watchAll",
-        "dev": "rm -rf dist && npm run copy && concurrently --kill-others --names 'COPY,EDITOR,RUNTIME,TEST' --prefix '({name})' --prefix-colors 'yellow.bold,cyan.bold,greenBright.bold,magenta.bold' 'onchange -v \"src/**/*.png\" \"src/**/*.svg\" -- npm run copy' 'npm run build:editor:watch' 'npm run build:runtime:watch' 'sleep 10; npm run test:watch'",
-        "lint": "prettier --ignore-path .eslintignore --check '**/*.{js,ts,md}'; eslint --ext .js,.ts .",
-        "lint:fix": "prettier --ignore-path .eslintignore --write '**/*.{js,ts,md}'; eslint --ext .js,.ts . --fix"
-    },
-    "node-red": {
-        "nodes": {
-            "chirpstack-connection": "./dist/nodes/chirpstack-connection/chirpstack-connection.js",
-            "chirpstack-user-management": "./dist/nodes/chirpstack-user-management/chirpstack-user-management.js",
-            "chirpstack-device-management": "./dist/nodes/chirpstack-device-management/chirpstack-device-management.js",
-            "chirpstack-application-management": "./dist/nodes/chirpstack-application-management/chirpstack-application-management.js",
-            "chirpstack-gateway-management": "./dist/nodes/chirpstack-gateway-management/chirpstack-gateway-management.js",
-            "chirpstack-organization-management": "./dist/nodes/chirpstack-organization-management/chirpstack-organization-management.js",
-            "chirpstack-device-profile-management": "./dist/nodes/chirpstack-device-profile-management/chirpstack-device-profile-management.js"
-        }
-    },
-    "dependencies": {
-        "@chirpstack/chirpstack-api": "^3.8.1",
-        "grpc": "^1.24.3"
-    },
-    "devDependencies": {
-        "@rollup/plugin-typescript": "^6.0.0",
-        "@types/express": "^4.17.7",
-        "@types/jest": "^26.0.15",
-        "@types/node": "^14.14.3",
-        "@types/node-red": "^1.1.1",
-        "@types/node-red-node-test-helper": "^0.2.1",
-        "@types/sinon": "^9.0.8",
-        "@types/supertest": "^2.0.10",
-        "@typescript-eslint/eslint-plugin": "^4.5.0",
-        "@typescript-eslint/parser": "^4.5.0",
-        "colorette": "^1.2.1",
-        "concurrently": "^5.3.0",
-        "copyfiles": "^2.4.0",
-        "eslint": "^7.12.0",
-        "eslint-config-prettier": "^6.14.0",
-        "eslint-plugin-jest": "^24.1.0",
-        "eslint-plugin-prettier": "^3.1.4",
-        "glob": "^7.1.6",
-        "jest": "^26.6.1",
-        "mustache": "^4.0.1",
-        "node-red": "^1.2.2",
-        "node-red-node-test-helper": "^0.2.5",
-        "onchange": "^7.1.0",
-        "prettier": "^2.0.5",
-        "rollup": "^2.32.1",
-        "ts-jest": "^26.4.2",
-        "typescript": "^4.0.3"
-    },
-    "jest": {
-        "testEnvironment": "node",
-        "roots": [
-            "<rootDir>/src"
-        ],
-        "transform": {
-            "^.+\\.ts$": "ts-jest"
-        },
-        "testMatch": [
-            "**/__tests__/**/*.test.ts"
-        ]
+  "name": "node-red-contrib-chirpstack",
+  "version": "1.0.0",
+  "description": "An adapter for node-red to easily connect to the ChirpStack gRPC API.",
+  "keywords": [
+    "node-red",
+    "chirpstack",
+    "Smart Parks"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/SmartParksOrg/node-red-contrib-chirpstack.git"
+  },
+  "author": "Smart Parks",
+  "license": "MIT",
+  "scripts": {
+    "add-node": "node ./utils/add-node.js",
+    "copy": "copyfiles -u 2 \"./src/nodes/**/*.{png,svg}\" \"./dist/nodes/\"",
+    "build:editor": "rollup -c rollup.config.editor.js",
+    "build:editor:watch": "rollup -c rollup.config.editor.js -w",
+    "build:runtime": "tsc -p tsconfig.runtime.json",
+    "build:runtime:watch": "tsc -p tsconfig.runtime.watch.json --watch --preserveWatchOutput",
+    "build": "rm -rf dist && npm run copy && npm run build:editor && npm run build:runtime",
+    "test": "jest --forceExit --detectOpenHandles --colors",
+    "test:watch": "jest --forceExit --detectOpenHandles --watchAll",
+    "dev": "rm -rf dist && npm run copy && concurrently --kill-others --names 'COPY,EDITOR,RUNTIME,TEST' --prefix '({name})' --prefix-colors 'yellow.bold,cyan.bold,greenBright.bold,magenta.bold' 'onchange -v \"src/**/*.png\" \"src/**/*.svg\" -- npm run copy' 'npm run build:editor:watch' 'npm run build:runtime:watch' 'sleep 10; npm run test:watch'",
+    "lint": "prettier --ignore-path .eslintignore --check '**/*.{js,ts,md}'; eslint --ext .js,.ts .",
+    "lint:fix": "prettier --ignore-path .eslintignore --write '**/*.{js,ts,md}'; eslint --ext .js,.ts . --fix"
+  },
+  "node-red": {
+    "nodes": {
+      "chirpstack-connection": "./dist/nodes/chirpstack-connection/chirpstack-connection.js",
+      "chirpstack-user-management": "./dist/nodes/chirpstack-user-management/chirpstack-user-management.js",
+      "chirpstack-device-management": "./dist/nodes/chirpstack-device-management/chirpstack-device-management.js",
+      "chirpstack-application-management": "./dist/nodes/chirpstack-application-management/chirpstack-application-management.js",
+      "chirpstack-gateway-management": "./dist/nodes/chirpstack-gateway-management/chirpstack-gateway-management.js",
+      "chirpstack-organization-management": "./dist/nodes/chirpstack-organization-management/chirpstack-organization-management.js",
+      "chirpstack-device-profile-management": "./dist/nodes/chirpstack-device-profile-management/chirpstack-device-profile-management.js"
     }
+  },
+  "dependencies": {
+    "@chirpstack/chirpstack-api": "^3.8.1",
+    "grpc": "^1.24.3"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^6.0.0",
+    "@types/express": "^4.17.7",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^14.14.3",
+    "@types/node-red": "^1.1.1",
+    "@types/node-red-node-test-helper": "^0.2.1",
+    "@types/sinon": "^9.0.8",
+    "@types/supertest": "^2.0.10",
+    "@typescript-eslint/eslint-plugin": "^4.5.0",
+    "@typescript-eslint/parser": "^4.5.0",
+    "colorette": "^1.2.1",
+    "concurrently": "^5.3.0",
+    "copyfiles": "^2.4.0",
+    "eslint": "^7.12.0",
+    "eslint-config-prettier": "^6.14.0",
+    "eslint-plugin-jest": "^24.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "glob": "^7.1.6",
+    "jest": "^26.6.1",
+    "mustache": "^4.0.1",
+    "node-red": "^1.2.2",
+    "node-red-node-test-helper": "^0.2.5",
+    "onchange": "^7.1.0",
+    "prettier": "^2.0.5",
+    "rollup": "^2.32.1",
+    "ts-jest": "^26.4.2",
+    "typescript": "^4.0.3"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "testMatch": [
+      "**/__tests__/**/*.test.ts"
+    ]
+  },
+  "bugs": {
+    "url": "https://github.com/SmartParksOrg/node-red-contrib-chirpstack/issues"
+  },
+  "homepage": "https://github.com/SmartParksOrg/node-red-contrib-chirpstack#readme",
+  "main": "node-red"
 }
