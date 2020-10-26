@@ -1,0 +1,149 @@
+<script data-help-name="chirpstack-gatewat-management" type="text/html">
+<p>Create, Edit, Update, Delete and List all gateways in your configured chirpstack environment.</p>
+<p>find your description sorted by action.</p>
+
+<h3>List All</h3>
+<h4>Inputs</h4>
+<dl class="message-properties">
+	<dt>payload
+		<span class="property-type">none</span>
+	</dt>
+	<dd> All empty or full inputs will trigger a request.</dd>
+</dl>
+
+<h4>Outputs</h4>
+<dl class="message-properties">
+	<dt>payload <span class="property-type">object</span></dt>
+	<dd> A list of all requested gateway objects.</dd>
+</dl>
+
+<h3>Get One</h3>
+<h4>Inputs</h4>
+<dl class="message-properties">
+	<dt>payload
+		<span class="property-type">string</span>
+	</dt>
+	<dd> The payload is the ID of the gateway.</dd>
+</dl>
+
+<h4>Outputs</h4>
+<dl class="message-properties">
+	<dt>payload <span class="property-type">object</span></dt>
+	<dd> The gateway object selected by the ID.</dd>
+</dl>
+
+<h3>Create One</h3>
+<h4>Inputs</h4>
+<dl class="message-properties">
+	<dt>payload
+		<span class="property-type">object | json</span>
+	</dt>
+	<dd> A gateway object with all parameters.</dd>
+</dl>
+
+<h4>Outputs</h4>
+<dl class="message-properties">
+	<dt>payload <span class="property-type">Empty</span></dt>
+	<dd> An empty object if successful.</dd>
+</dl>
+
+<h3>Update One</h3>
+<h4>Inputs</h4>
+<dl class="message-properties">
+	<dt>payload
+		<span class="property-type">object | json</span>
+	</dt>
+	<dd> An updated gateway object with all parameters.</dd>
+</dl>
+
+<h4>Outputs</h4>
+<dl class="message-properties">
+	<dt>payload <span class="property-type">Empty</span></dt>
+	<dd> An empty object if successful.</dd>
+</dl>
+
+<h3>Delete One</h3>
+<h4>Inputs</h4>
+<dl class="message-properties">
+	<dt>payload
+		<span class="property-type">string</span>
+	</dt>
+	<dd> A string with the gateway Eui to select the gateway to delete.</dd>
+</dl>
+
+<h4>Outputs</h4>
+<dl class="message-properties">
+	<dt>payload <span class="property-type">Empty</span></dt>
+	<dd> An empty object if successful.</dd>
+</dl>
+
+<h3>Details</h3>
+<p>
+	<code>msg.payload</code> Is used as the payload to the api request.<br/>
+	The result set will always be published in <code>msg.payload</code> as an object.
+</p>
+<p> A <code>gateway object</code> has the following attributes.</p>
+
+<dl class="message-properties">
+	<dt class="optional">id
+		<span class="property-type">string</span>
+	</dt>
+	<dd> Gateway ID (HEX encoded).</dd>
+
+	<dt class="optional">description
+		<span class="property-type">string</span>
+	</dt>
+	<dd> A description for the gateway.</dd>
+
+	<dt class="optional">name
+		<span class="property-type">string</span>
+	</dt>
+	<dd> A name for the gateway.</dd>
+
+	<dt class="optional">organizationID
+		<span class="property-type">string</span>
+	</dt>
+	<dd> Organization ID.</dd>
+
+	<dt class="optional">networkServerName
+		<span class="property-type">string</span>
+	</dt>
+	<dd> Network-server name.</dd>
+
+	<dt class="optional">networkServerID
+		<span class="property-type">string</span>
+	</dt>
+	<dd> Network-server ID.</dd>
+
+	<dt class="optional">location
+		<span class="property-type">object | commonLocation</span>
+	</dt>
+	<dd> Location.</dd>
+
+	<dt class="optional">firstSeenAt
+		<span class="property-type">string</span>
+	</dt>
+	<dd> First seen timestamp.</dd>
+
+	<dt class="optional">lastSeenAt
+		<span class="property-type">string</span>
+	</dt>
+	<dd> Last seen timestamp.</dd>
+
+	<dt class="optional">createdAt
+		<span class="property-type">string</span>
+	</dt>
+	<dd> Create timestamp.</dd>
+
+	<dt class="optional">updatedAt
+		<span class="property-type">string</span>
+	</dt>
+	<dd> Last update timestamp.</dd>
+</dl>
+
+<h3>References</h3>
+<ul>
+	<li><a href="https://www.chirpstack.io/application-server/api/#restful-json-interface" target="_blank">Chirpstack API docs</a> - description of where to find your essentials.</li>
+	<li><a href="https://github.com/adminfriso/node-red-contrib-chirpstack" target="_blank">GitHub</a> - the chirpstack contrib repository.</li>
+</ul>
+</script>

@@ -1,0 +1,135 @@
+<script data-help-name="chirpstack-application-management" type="text/html">
+<p>Create, Edit, Update, Delete and List all applications in your configured chirpstack environment.</p>
+<p>find your description sorted by action.</p>
+
+<h3>List All</h3>
+<h4>Inputs</h4>
+<dl class="message-properties">
+	<dt>payload
+		<span class="property-type">none</span>
+	</dt>
+	<dd> All empty or full inputs will trigger a request.</dd>
+</dl>
+
+<h4>Outputs</h4>
+<dl class="message-properties">
+	<dt>payload <span class="property-type">object</span></dt>
+	<dd> A list of all requested application objects.</dd>
+</dl>
+
+<h3>Get One</h3>
+<h4>Inputs</h4>
+<dl class="message-properties">
+	<dt>payload
+		<span class="property-type">string</span>
+	</dt>
+	<dd> The payload is the ID of the application.</dd>
+</dl>
+
+<h4>Outputs</h4>
+<dl class="message-properties">
+	<dt>payload <span class="property-type">object</span></dt>
+	<dd> The application object selected by the ID.</dd>
+</dl>
+
+<h3>Create One</h3>
+<h4>Inputs</h4>
+<dl class="message-properties">
+	<dt>payload
+		<span class="property-type">object | json</span>
+	</dt>
+	<dd> A application object with all parameters.</dd>
+</dl>
+
+<h4>Outputs</h4>
+<dl class="message-properties">
+	<dt>payload <span class="property-type">Empty</span></dt>
+	<dd> An empty object if successful.</dd>
+</dl>
+
+<h3>Update One</h3>
+<h4>Inputs</h4>
+<dl class="message-properties">
+	<dt>payload
+		<span class="property-type">object | json</span>
+	</dt>
+	<dd> An updated application object with all parameters.</dd>
+</dl>
+
+<h4>Outputs</h4>
+<dl class="message-properties">
+	<dt>payload <span class="property-type">Empty</span></dt>
+	<dd> An empty object if successful.</dd>
+</dl>
+
+<h3>Delete One</h3>
+<h4>Inputs</h4>
+<dl class="message-properties">
+	<dt>payload
+		<span class="property-type">string</span>
+	</dt>
+	<dd> A string with the application Eui to select the application to delete.</dd>
+</dl>
+
+<h4>Outputs</h4>
+<dl class="message-properties">
+	<dt>payload <span class="property-type">Empty</span></dt>
+	<dd> An empty object if successful.</dd>
+</dl>
+
+<h3>Details</h3>
+<p>
+	<code>msg.payload</code> Is used as the payload to the api request.<br/>
+	The result set will always be published in <code>msg.payload</code> as an object.
+</p>
+<p> A <code>application object</code> has the following attributes.</p>
+
+
+<dl class="message-properties">
+	<dt class="optional">id
+		<span class="property-type">string</span>
+	</dt>
+	<dd> Application ID. Will be set automatically on create.</dd>
+
+	<dt class="optional">description
+		<span class="property-type">string</span>
+	</dt>
+	<dd> Description of the application.</dd>
+
+	<dt class="optional">name
+		<span class="property-type">string</span>
+	</dt>
+	<dd> Name of the application (must be unique).</dd>
+
+	<dt class="optional">organizationID
+		<span class="property-type">string</span>
+	</dt>
+	<dd> ID of the organization to which the application belongs. After create, this can not be modified.</dd>
+
+	<dt class="optional">payloadCodec
+		<span class="property-type">string</span>
+	</dt>
+	<dd> Payload codec. NOTE: These field have moved to the device-profile and will be removed in the next major release. When set, the device-profile payload fields have priority over the application payload fields.</dd>
+
+	<dt class="optional">payloadDecoderScript
+		<span class="property-type">string</span>
+	</dt>
+	<dd> Payload decoder script. NOTE: These field have moved to the device-profile and will be removed in the next major release. When set, the device-profile payload fields have priority over the application payload fields.</dd>
+
+	<dt class="optional">payloadEncoderScript
+		<span class="property-type">string</span>
+	</dt>
+	<dd> Payload encoder script. NOTE: These field have moved to the device-profile and will be removed in the next major release. When set, the device-profile payload fields have priority over the application payload fields.</dd>
+
+	<dt class="optional">serviceProfileID
+		<span class="property-type">string</span>
+	</dt>
+	<dd> ID of the service profile.</dd>
+</dl>
+
+<h3>References</h3>
+<ul>
+	<li><a href="https://www.chirpstack.io/application-server/api/#restful-json-interface" target="_blank">Chirpstack API docs</a> - description of where to find your essentials.</li>
+	<li><a href="https://github.com/adminfriso/node-red-contrib-chirpstack" target="_blank">GitHub</a> - the chirpstack contrib repository.</li>
+</ul>
+</script>

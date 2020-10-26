@@ -4,7 +4,6 @@ import {
   ChirpstackDeviceManagementNodeDef,
 } from "./modules/types";
 import { setConnection } from "../shared/setConnection";
-import { ChirpstackUserManagementNode } from "../chirpstack-user-management/modules/types";
 
 import grpc from "grpc";
 import {
@@ -53,7 +52,7 @@ const nodeInit: NodeInitializer = (RED): void => {
     }
   }
 
-  function listAllDevices(node: ChirpstackUserManagementNode): void {
+  function listAllDevices(node: ChirpstackDeviceManagementNode): void {
     node.on("input", (msg, send, done) => {
       const listDeviceRequest = new ListDeviceRequest();
       listDeviceRequest.setLimit(5);
@@ -114,7 +113,7 @@ const nodeInit: NodeInitializer = (RED): void => {
     });
   }
 
-  function getOneDevice(node: ChirpstackUserManagementNode): void {
+  function getOneDevice(node: ChirpstackDeviceManagementNode): void {
     node.on("input", (msg, send, done) => {
       const getDeviceRequest = new GetDeviceRequest();
 
@@ -141,7 +140,7 @@ const nodeInit: NodeInitializer = (RED): void => {
     });
   }
 
-  function createOneDevice(node: ChirpstackUserManagementNode): void {
+  function createOneDevice(node: ChirpstackDeviceManagementNode): void {
     node.on("input", (msg, send, done) => {
       const createDeviceRequest = new CreateDeviceRequest();
       //eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -156,6 +155,14 @@ const nodeInit: NodeInitializer = (RED): void => {
       device.setName(newObject?.name);
       device.setReferenceAltitude(newObject?.referenceAltitude);
       device.setSkipFCntCheck(newObject?.skipFCntCheck);
+      //eslint-disable-next-line @typescript-eslint/no-explicit-any
+      newObject?.tagsMap.forEach((tag: any) => {
+        device.getTagsMap().set(tag[0], tag[1]);
+      });
+      //eslint-disable-next-line @typescript-eslint/no-explicit-any
+      newObject?.variablesMap.forEach((variable: any) => {
+        device.getVariablesMap().set(variable[0], variable[1]);
+      });
 
       createDeviceRequest.setDevice(device);
 
@@ -182,7 +189,7 @@ const nodeInit: NodeInitializer = (RED): void => {
     });
   }
 
-  function updateOneDevice(node: ChirpstackUserManagementNode): void {
+  function updateOneDevice(node: ChirpstackDeviceManagementNode): void {
     node.on("input", (msg, send, done) => {
       //eslint-disable-next-line @typescript-eslint/no-explicit-any
       const dirtyObject: any = msg.payload;
@@ -196,6 +203,14 @@ const nodeInit: NodeInitializer = (RED): void => {
       dirtyDevice.setName(dirtyObject?.name);
       dirtyDevice.setReferenceAltitude(dirtyObject?.referenceAltitude);
       dirtyDevice.setSkipFCntCheck(dirtyObject?.skipFCntCheck);
+      //eslint-disable-next-line @typescript-eslint/no-explicit-any
+      dirtyObject?.tagsMap.forEach((tag: any) => {
+        dirtyDevice.getTagsMap().set(tag[0], tag[1]);
+      });
+      //eslint-disable-next-line @typescript-eslint/no-explicit-any
+      dirtyObject?.variablesMap.forEach((variable: any) => {
+        dirtyDevice.getVariablesMap().set(variable[0], variable[1]);
+      });
 
       const updateDeviceRequest = new UpdateDeviceRequest();
       updateDeviceRequest.setDevice(dirtyDevice);
@@ -223,7 +238,7 @@ const nodeInit: NodeInitializer = (RED): void => {
     });
   }
 
-  function deleteOneDevice(node: ChirpstackUserManagementNode): void {
+  function deleteOneDevice(node: ChirpstackDeviceManagementNode): void {
     node.on("input", (msg, send, done) => {
       const deleteDeviceRequest = new DeleteDeviceRequest();
 

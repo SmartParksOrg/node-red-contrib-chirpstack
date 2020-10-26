@@ -1,0 +1,124 @@
+<script data-help-name="chirpstack-device-profile-management" type="text/html">
+<p>Create, Edit, Update, Delete and List all device profiles in your configured chirpstack environment.</p>
+<p>find your description sorted by action.</p>
+
+<h3>List All</h3>
+<h4>Inputs</h4>
+<dl class="message-properties">
+	<dt>payload
+		<span class="property-type">none</span>
+	</dt>
+	<dd> All empty or full inputs will trigger a request.</dd>
+</dl>
+
+<h4>Outputs</h4>
+<dl class="message-properties">
+	<dt>payload <span class="property-type">object</span></dt>
+	<dd> A list of all requested device profile objects.</dd>
+</dl>
+
+<h3>Get One</h3>
+<h4>Inputs</h4>
+<dl class="message-properties">
+	<dt>payload
+		<span class="property-type">string</span>
+	</dt>
+	<dd> The payload is the ID of the device profile.</dd>
+</dl>
+
+<h4>Outputs</h4>
+<dl class="message-properties">
+	<dt>payload <span class="property-type">object</span></dt>
+	<dd> The device profile object selected by the ID.</dd>
+</dl>
+
+<h3>Create One</h3>
+<h4>Inputs</h4>
+<dl class="message-properties">
+	<dt>payload
+		<span class="property-type">object | json</span>
+	</dt>
+	<dd> A device profile object with all parameters.</dd>
+</dl>
+
+<h4>Outputs</h4>
+<dl class="message-properties">
+	<dt>payload <span class="property-type">Empty</span></dt>
+	<dd> An empty object if successful.</dd>
+</dl>
+
+<h3>Update One</h3>
+<h4>Inputs</h4>
+<dl class="message-properties">
+	<dt>payload
+		<span class="property-type">object | json</span>
+	</dt>
+	<dd> An updated device profile object with all parameters.</dd>
+</dl>
+
+<h4>Outputs</h4>
+<dl class="message-properties">
+	<dt>payload <span class="property-type">Empty</span></dt>
+	<dd> An empty object if successful.</dd>
+</dl>
+
+<h3>Delete One</h3>
+<h4>Inputs</h4>
+<dl class="message-properties">
+	<dt>payload
+		<span class="property-type">string</span>
+	</dt>
+	<dd> A string with the device profile id to select the device profile to delete.</dd>
+</dl>
+
+<h4>Outputs</h4>
+<dl class="message-properties">
+	<dt>payload <span class="property-type">Empty</span></dt>
+	<dd> An empty object if successful.</dd>
+</dl>
+
+<h3>Details</h3>
+<p>
+	<code>msg.payload</code> Is used as the payload to the api request.<br/>
+	The result set will always be published in <code>msg.payload</code> as an object.
+</p>
+<p> A <code>device profile object</code> has the following attributes.</p>
+
+<dl class="message-properties">
+<!--	TODO: make beautiful in correct format-->
+<!--	TODO: find in libary @chirpstack/chirpstack-api/as/external/api/profiles_pb:117 for types of parms-->
+	deviceProfile.setId(newObject?.id);
+  deviceProfile.setName(newObject?.name);
+  deviceProfile.setOrganizationId(newObject?.organizationId);
+  deviceProfile.setNetworkServerId(newObject?.networkServerId);
+  deviceProfile.setSupportsClassB(newObject?.supportsClassB);
+  deviceProfile.setClassBTimeout(newObject?.classBTimeout);
+  deviceProfile.setPingSlotPeriod(newObject?.pingSlotPeriod);
+  deviceProfile.setPingSlotDr(newObject?.pingSlotDr);
+  deviceProfile.setPingSlotFreq(newObject?.pingSlotFreq);
+  deviceProfile.setSupportsClassC(newObject?.supportsClassC);
+  deviceProfile.setClassCTimeout(newObject?.classCTimeout);
+  deviceProfile.setMacVersion(newObject?.macVersion);
+  deviceProfile.setRegParamsRevision(newObject?.regParamsRevision);
+  deviceProfile.setRxDelay1(newObject?.rxDelay1);
+  deviceProfile.setRxDrOffset1(newObject?.rxDrOffset1);
+  deviceProfile.setRxDatarate2(newObject?.rxDatarate2);
+  deviceProfile.setRxFreq2(newObject?.rxFreq2);
+  deviceProfile.setMaxEirp(newObject?.maxEirp);
+  deviceProfile.setMaxDutyCycle(newObject?.maxDutyCycle);
+  deviceProfile.setSupportsJoin(newObject?.supportsJoin);
+  deviceProfile.setRfRegion(newObject?.rfRegion);
+  deviceProfile.setSupports32bitFCnt(newObject?.supports32bitFCnt);
+  deviceProfile.setPayloadCodec(newObject?.payloadCodec);
+  deviceProfile.setPayloadEncoderScript(newObject?.payloadEncoderScript);
+  deviceProfile.setPayloadDecoderScript(newObject?.payloadDecoderScript);
+  deviceProfile.setGeolocBufferTtl(newObject?.geolocBufferTtl);
+  deviceProfile.setGeolocMinBufferSize(newObject?.geolocMinBufferSize);
+</dl>
+
+<h3>References</h3>
+<ul>
+	<li><a href="https://www.chirpstack.io/application-server/api/#restful-json-interface" target="_blank">Chirpstack API docs</a> - description of where to find your essentials.</li>
+	<li><a href="https://github.com/adminfriso/node-red-contrib-chirpstack" target="_blank">GitHub</a> - the chirpstack contrib repository.</li>
+</ul>
+</script>
