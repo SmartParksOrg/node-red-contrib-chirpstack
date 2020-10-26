@@ -40,7 +40,8 @@
   },
   "dependencies": {
     "@chirpstack/chirpstack-api": "^3.8.1",
-    "grpc": "^1.24.3"
+    "grpc": "^1.24.3",
+    "tslib": "^2.0.3"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^6.0.0",
