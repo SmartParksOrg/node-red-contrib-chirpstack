@@ -1,6 +1,6 @@
 {
   "name": "@smartparks/node-red-contrib-chirpstack",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An adapter for node-red to easily connect to the ChirpStack gRPC API.",
   "keywords": [
     "node-red",
