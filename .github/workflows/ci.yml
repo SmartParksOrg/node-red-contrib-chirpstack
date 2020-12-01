@@ -11,9 +11,9 @@ jobs:
         node-version: [latest]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
       - name: Setup Node.js ${{ matrix.node-version }} environment
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v2.1.2
         with:
           node-version: ${{ matrix.node-version }}
 
