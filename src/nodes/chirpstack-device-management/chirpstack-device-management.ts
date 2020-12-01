@@ -24,6 +24,9 @@ const nodeInit: NodeInitializer = (RED): void => {
   ): void {
     RED.nodes.createNode(this, config);
     this.chirpstackConnection = setConnection(this, config, RED);
+    this.on("input", () => {
+      this.chirpstackConnection = setConnection(this, config, RED);
+    });
 
     switch (config.action) {
       case "list":

@@ -37,24 +37,38 @@ const nodeInit: NodeInitializer = (RED): void => {
     loginRequest.setEmail(this.username);
     loginRequest.setPassword(this.password);
     // Send the login request
-    internalServiceClient.login(loginRequest, (error, response) => {
-      // Build a gRPC metadata object, setting the authorization key to the JWT we
-      // got back from logging in.
-      if (error) {
-        this.error(
-          "Error on connection for Chirpstack application " +
-            this.host +
-            ": " +
-            error
-        );
-        throw error;
-      }
-      if (!response) {
-        this.error("Received empty response from Chirpstack");
-        throw new Error("emptyResponse");
-      }
-      this.grpcMetadata = new grpc.Metadata();
-      this.grpcMetadata.set("authorization", "Bearer " + response.getJwt());
+    new Promise((resolve) => {
+      internalServiceClient.login(loginRequest, (error, response) => {
+        // Build a gRPC metadata object, setting the authorization key to the JWT we
+        // got back from logging in.
+        if (error) {
+          this.error(
+            "Error on connection for Chirpstack application " +
+              this.host +
+              ": " +
+              error
+          );
+          this.throwError = error.code + " : " + error.message;
+          return resolve;
+          // throw error;
+        } else {
+          if (!response) {
+            this.error("Received empty response from Chirpstack");
+            this.throwError = "Received empty response from Chirpstack";
+            // throw new Error("emptyResponse");
+            return resolve;
+          } else {
+            this.grpcMetadata = new grpc.Metadata();
+            this.grpcMetadata.set(
+              "authorization",
+              "Bearer " + response.getJwt()
+            );
+            return resolve;
+          }
+        }
+      });
+    }).then(() => {
+      return;
     });
   }
 
