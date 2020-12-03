@@ -11,6 +11,7 @@ export interface ChirpstackConnectionNode
     ChirpstackConnectionOptions {
   fullAddress: string;
   grpcMetadata: grpc.Metadata;
+  throwError: string;
 }
 
 // export type ChirpstackConnectionNode = Node;

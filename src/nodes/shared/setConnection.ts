@@ -19,7 +19,18 @@ export function setConnection(
     });
     return chirpstackConnection;
   }
-  // TODO: validate connection status (do a request, validate if it came trough, if yes connected, if no disconnected)
+
+  if (chirpstackConnection.throwError) {
+    baseNode.error("Error in chirpstack connection");
+    baseNode.status({
+      fill: "red",
+      shape: "dot",
+      text: chirpstackConnection.throwError,
+    });
+    return chirpstackConnection;
+  }
+
+  // all good
   baseNode.status({
     fill: "green",
     shape: "dot",
